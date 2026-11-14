@@ -1,0 +1,28 @@
+{
+  "dependencies": {
+    "cors": "^2.8.6",
+    "express": "^5.3.0",
+    "node": "^27.0.0-alpha.0.1.0"
+  },
+
+  "name": "turnos-medicos-backend",
+  "version": "1.0.0",
+  "description": "Backend para el sistema de turnos",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node app.js",
+    "dev": "node --watch app.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/jpradells-lnx/TP-FINAL"
+  },
+  "author": "intro-camejo",
+  "license": "ISC",
+  "bugs": {
+  "url": "https://github.com/intro-camejo/ricky-fort-merch/issues"
+  },
+  "homepage": "https://github.com/jpradells-lnx/TP-FINAL/edit/main/README.md",
+  "type": "module"
+}
