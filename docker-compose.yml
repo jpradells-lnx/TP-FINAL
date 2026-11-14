@@ -4,11 +4,11 @@ services:
     environment:
       POSTGRES_USER: postgres
       POSTGRES_PASSWORD: postgres
-      POSTGRES_DB: tunos_medicos
+      POSTGRES_DB: turnos_medicos
     ports:
       - "5432:5432"
     volumes:
-      - pg_data:/var/lib/postgresql/data
+      - pg_data:/var/lib/postgresql
       - ./backend/db/schemas.sql:/docker-entrypoint-initdb.d/01-schemas.sql:ro
       - ./backend/db/seeds.sql:/docker-entrypoint-initdb.d/02-seeds.sql:ro
   backend:
@@ -17,10 +17,7 @@ services:
       - "3000:3000"
     environment:
       DB_HOST: db
-    depends_on:
-      db:
-        condition: service_healthy
-
+  
   frontend:
     image: nginx:alpine
     volumes:
