@@ -1,30 +1,104 @@
-.navbar a {
-    text-decoration: none;
-    font-size: 30px;
-    padding: 10px;
-    color: black;
+.navbar {
+    border-bottom: 3px solid rgb(23, 45, 123);
+    padding: 20px 40px;
+    display: flex;
+    justify-content: space-around;
+    gap: 15px;
+    background-color: white;
 }
 
-.navbar {
-    border-bottom: 3px solid black;
-    padding: 20px;
+.navbar a {
+    text-decoration: none;
+    font-size: 20px;
+    padding: 8px 14px;
+    color: black;
+    border-radius: 6px;
+    transition: background-color 0.2s;
+    font-family: sans-serif;
 }
 
 .titulo {
-    font-size: 45px;
     text-align: center;
-    text-decoration: underline 3px;
+    margin: 35px 0;
+}
+
+.titulo h1 {
+    font-family: 'Poppins', sans-serif;
+    font-size: 40px;
+    text-align: center;
+    margin: 0;
+}
+
+.contenido li {
+    margin-bottom: 10px;
+    line-height: 1.4;
+}
+
+body {
+    font-family: Arial;
+    background-color: #fbf9fb;
+    color: #111111;
+    min-height: 100vh;
+    display: flex;
+        flex-direction: column;
 }
 
 .contenido {
     display: flex;
-    gap: 20px;
-    font-size: 30px;
-    align-items: center;
+    gap: 30px;
+    font-size: 19px;
+    align-items: stretch;
     justify-content: center;
+    max-width: 1000px;
+    margin: 0 auto 45px auto;
+    padding: 0 20px;
+}
+
+.izquierda, .derecha {
+    flex: 1;
+    border: 2px solid rgb(23, 45, 123);
+    border-top: 4px solid rgb(23, 45, 123);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.06);
+    border-radius: 8px;
+    padding: 25px;
+    background-color: rgba(212, 242, 255, 0.659);
+    flex-direction: column;
+    justify-content: flex-start;
+}
+
+.izquierda ul {
+    list-style: none;
+    padding-left: 5px;
+}
+.izquierda li::before {
+    content: "✓ ";
+    font-weight: bold;
+    color: rgb(23, 45, 123);
+}
+
+.derecha ol {
+    padding-left: 25px;
+}
+
+.contenido h3 {
+    text-align: center;
 }
 
 .footer {
-    font-size: 21px;
-    padding-left: 45px;
+    font-size: 17px;
+    padding: 20px 45px;
+    border-top: 3px solid rgb(23, 45, 123);
+    background-color: white;
+    margin-top: auto;
 }
+
+.footer p{
+    font-family: 'Poppins', sans-serif;
+    margin-top: 0;
+}
+
+.footer ul{
+    
+    list-style: none;
+}
+
