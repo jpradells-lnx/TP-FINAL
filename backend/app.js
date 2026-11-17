@@ -21,7 +21,19 @@ function parseId(textId){
 
 app.get("/api/especialidades", async (req, res) => {
     try {
-        const result = await db.query("SELECT * FROM especialidades ORDER BY nombre");
+        const result = await db.query(`
+      SELECT 
+        e.id,
+        e.nombre,
+        e.descripcion,
+        e.monto_consulta,
+        e.duracion_turno_min,
+        STRING_AGG(m.nombre, ', ') AS medicos_asociados
+        FROM especialidades e
+        LEFT JOIN medicos m ON m.especialidad = e.id
+        GROUP BY e.id
+        ORDER BY e.id;
+    `);
         res.json(result.rows);
     } catch (err) {
         console.error(err);

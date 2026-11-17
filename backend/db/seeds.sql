@@ -1,5 +1,5 @@
 -- ESPECIALIDADES (ids 1 a 6)
-INSERT INTO especialidades (nombre, descripción, monto_consulta, duracion_turno_min, medicosDisponibles) VALUES
+INSERT INTO especialidades (nombre, descripcion, monto_consulta, duracion_turno_min, medicosDisponibles) VALUES
 ('Clínica Médica', 'Atención general y control de salud del adulto', 18000, 30, TRUE),
 ('Pediatría', 'Atención de niños y adolescentes', 20000, 30, TRUE),
 ('Cardiología', 'Diagnóstico y control de enfermedades del corazón', 28000, 40, TRUE),

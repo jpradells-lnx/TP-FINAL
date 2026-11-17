@@ -10,7 +10,7 @@ historiaClinica VARCHAR(1000)
 CREATE TABLE especialidades (
 id SERIAL PRIMARY KEY,
 nombre VARCHAR(50) NOT NULL,
-descripción VARCHAR(100),
+descripcion VARCHAR(100),
 monto_consulta INT NOT NULL,
 duracion_turno_min INT NOT NULL DEFAULT 30,
 medicosDisponibles BOOLEAN

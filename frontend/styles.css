@@ -37,7 +37,7 @@
 
 body {
     font-family: Arial;
-    background-color: #9ed0f1;
+    background-color: #e2edf583;
     color: #111111;
     min-height: 100vh;
     display: flex;
@@ -60,7 +60,7 @@ body {
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.06);
     border-radius: 8px;
     padding: 25px;
-    background-color: rgba(212, 242, 255, 0.659);
+    background-color: rgba(160, 221, 247, 0.599);
 }
 
 .izquierda ul {
@@ -102,3 +102,25 @@ body {
     margin-top: 5px;
 }
 
+.tabla-especialidades {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 1rem;
+  font-family: sans-serif;
+}
+
+.tabla-especialidades th,
+.tabla-especialidades td {
+  border: 1px solid #ddd;
+  padding: 10px 12px;
+  text-align: left;
+}
+
+.tabla-especialidades thead {
+  background-color: #0d6efd;
+  color: white;
+}
+
+.tabla-especialidades tbody tr:nth-child(even) {
+  background-color: #f8f9fa;
+}
