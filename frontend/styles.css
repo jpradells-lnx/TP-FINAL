@@ -1,42 +1,43 @@
 .navbar {
     border-bottom: 3px solid rgb(23, 45, 123);
-    padding: 20px 40px;
+    padding: 15px 10px;
     display: flex;
-    justify-content: space-around;
-    gap: 15px;
+    justify-content: flex-start;
+    gap: 5px;
     background-color: white;
 }
 
 .navbar a {
     text-decoration: none;
-    font-size: 20px;
+    font-size: 25px;
     padding: 8px 14px;
     color: black;
-    border-radius: 6px;
     transition: background-color 0.2s;
     font-family: sans-serif;
 }
 
-.titulo {
-    text-align: center;
-    margin: 35px 0;
+.navbar a:hover {
+    background-color: rgb(133, 157, 245);
+    text-decoration: underline 2px;
+    border-radius: 15px;
 }
 
 .titulo h1 {
     font-family: 'Poppins', sans-serif;
-    font-size: 40px;
+    font-size: 60px;
     text-align: center;
-    margin: 0;
+    text-decoration: underline 4px solid rgb(17, 44, 143);
+    margin: 25px;
 }
 
 .contenido li {
-    margin-bottom: 10px;
+    margin-bottom: 50px;
     line-height: 1.4;
 }
 
 body {
     font-family: Arial;
-    background-color: #fbf9fb;
+    background-color: #9ed0f1;
     color: #111111;
     min-height: 100vh;
     display: flex;
@@ -45,10 +46,8 @@ body {
 
 .contenido {
     display: flex;
-    gap: 30px;
-    font-size: 19px;
-    align-items: stretch;
-    justify-content: center;
+    gap: 50px;
+    font-size: 20px;
     max-width: 1000px;
     margin: 0 auto 45px auto;
     padding: 0 20px;
@@ -62,8 +61,6 @@ body {
     border-radius: 8px;
     padding: 25px;
     background-color: rgba(212, 242, 255, 0.659);
-    flex-direction: column;
-    justify-content: flex-start;
 }
 
 .izquierda ul {
@@ -92,13 +89,16 @@ body {
     margin-top: auto;
 }
 
-.footer p{
+.footer p {
     font-family: 'Poppins', sans-serif;
-    margin-top: 0;
+    font-size: 22px;
+    margin-top: 0px;
+    margin-bottom: 0px;
 }
 
-.footer ul{
-    
+.footer ul { 
     list-style: none;
+    font-size: 18px;
+    margin-top: 5px;
 }
 
