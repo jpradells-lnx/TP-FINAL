@@ -18,4 +18,4 @@ async function cargarSelectEspecialidades() {
     }
 }
 
-if (selectEspecialidad) cargarSelectEspecialidades();
+cargarSelectEspecialidades();
