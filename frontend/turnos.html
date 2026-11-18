@@ -14,6 +14,16 @@
 
         <div>
             <form id="form-turno">
+                <label for="especialidad">Especialidad</label>
+                <select id="especialidad" name="especialidad" required>
+                    <option value="">Cargando...</option>
+                </select>
+
+                <label for="idMedico">Médico (opcional)</label>
+                <select id="idMedico" name="idMedico" disabled>
+                    <option value="">Elegí primero una especialidad</option>
+                </select>
+
                 <label for="fecha">Fecha</label>
                 <input type="date" id="fecha" name="fecha" required>
 
@@ -22,9 +32,6 @@
 
                 <label for="idPaciente">ID de paciente</label>
                 <input type="number" id="idPaciente" name="idPaciente" min="1" required>
-
-                <label for="idMedico">ID de médico (opcional)</label>
-                <input type="number" id="idMedico" name="idMedico" min="1">
 
                 <button type="submit">Pedir turno</button>
             </form>
@@ -37,5 +44,6 @@
                 <li>✉️ E-mail: turnos.medicos@hotmail.com</li>
             </ul>
         </div>
+        <script src="scripts.js"></script>
     </body>
 </html>
