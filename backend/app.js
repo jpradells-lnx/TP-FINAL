@@ -40,3 +40,20 @@ app.get("/api/especialidades", async (req, res) => {
         res.status(500).json({ error: "Error al obtener las especialidades" });
     }
 })
+
+app.get("/api/medicos", async (req, res) => {
+    const { especialidad } = req.query;
+    if (!especialidad) {
+        return res.status(400).json({ error: "Falta la especialidad" });
+    }
+    try {
+        const result = await db.query(
+            "SELECT id, nombre, apellido FROM medicos WHERE especialidad = $1 ORDER BY apellido",
+            [especialidad]
+        );
+        res.json(result.rows);
+    } catch (err) {
+        console.error(err);
+        res.status(500).json({ error: "Error al obtener los médicos" });
+    }
+});
