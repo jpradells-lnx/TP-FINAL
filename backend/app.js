@@ -8,10 +8,10 @@ const port = 3000;
 app.use(cors());
 app.use(express.json());
 
-app.get("/api/especialidades", async (req, res) => {
+/*app.get("/api/especialidades", async (req, res) => {
   const result = await db.query("SELECT * FROM especialidades ORDER BY id");
   res.json({ results: result.rows });
-});
+});*/
 
 app.get("/api/especialidades/:id", async (req, res) => {
   const id = parseId(req.params.id);
@@ -51,13 +51,15 @@ app.get("/api/especialidades", async (req, res) => {
         e.nombre,
         e.descripcion,
         e.monto_consulta,
-        e.duracion_turno_min,
-        STRING_AGG(m.nombre, ', ') AS medicos_asociados
+        e.duracion,
+        STRING_AGG(
+        CONCAT_WS(' ', m.nombre, m.apellido),', ') AS medicos_asociados
         FROM especialidades e
         LEFT JOIN medicos m ON m.especialidad = e.id
         GROUP BY e.id
         ORDER BY e.id;
     `);
+    console.log("Resultado BD:", result.rows);
         res.json(result.rows);
     } catch (err) {
         console.error(err);
