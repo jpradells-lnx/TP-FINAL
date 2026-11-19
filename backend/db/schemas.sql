@@ -12,7 +12,7 @@ id SERIAL PRIMARY KEY,
 nombre VARCHAR(50) NOT NULL,
 descripcion VARCHAR(100),
 monto_consulta INT NOT NULL,
-duracion_turno_min INT NOT NULL DEFAULT 30,
+duracion INT NOT NULL DEFAULT 30,
 medicosDisponibles BOOLEAN
 );
 
