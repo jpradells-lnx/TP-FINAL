@@ -121,3 +121,115 @@ body {
     color: black;
 }
 
+.tabla-especialidades thead {
+  background-color: #0d6efd;
+  color: white;
+}
+
+.tabla-especialidades tbody tr:nth-child(even) {
+  background-color: #f8f9fa;
+}
+
+.navbar a.active {
+    background-color: rgb(23, 45, 123);
+    color: white;
+    border-radius: 15px;
+}
+
+.form-contenedor {
+    width: 520px;
+    max-width: 100%;
+    box-sizing: border-box;
+    margin: 30px auto 45px auto;
+    padding: 25px 30px;
+    border: 2px solid rgb(23, 45, 123);
+    border-top: 4px solid rgb(23, 45, 123);
+    border-radius: 8px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.06);
+    background-color: rgba(160, 221, 247, 0.599);
+}
+
+.form-contenedor h2 {
+    font-family: 'Poppins', sans-serif;
+    text-align: center;
+    margin-top: 0;
+}
+
+#form-turno {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+}
+
+#form-turno label {
+    font-weight: bold;
+    margin-top: 10px;
+}
+
+#form-turno select,
+#form-turno input {
+    width: 100%;
+    height: 44px;
+    box-sizing: border-box;
+    padding: 0 12px;
+    font-size: 16px;
+    font-family: Arial, sans-serif;
+    border: 2px solid rgb(23, 45, 123);
+    border-radius: 8px;
+    background-color: white;
+}
+
+#form-turno select {
+    text-overflow: ellipsis;
+}
+
+#form-turno select:focus,
+#form-turno input:focus {
+    outline: none;
+    border-color: rgb(133, 157, 245);
+    box-shadow: 0 0 0 3px rgba(133, 157, 245, 0.5);
+}
+
+#form-turno select:disabled {
+    background-color: #e9ecef;
+    color: #6c757d;
+    cursor: not-allowed;
+}
+
+#form-turno button {
+    width: 100%;
+    height: 48px;
+    margin-top: 20px;
+    font-size: 18px;
+    font-family: 'Poppins', sans-serif;
+    color: white;
+    background-color: rgb(23, 45, 123);
+    border: none;
+    border-radius: 15px;
+    cursor: pointer;
+    transition: background-color 0.2s;
+}
+
+#form-turno button:hover {
+    background-color: rgb(133, 157, 245);
+    color: black;
+}
+
+.mensaje {
+    height: 24px;
+    margin: 10px 0 0 0;
+    text-align: center;
+    font-weight: bold;
+}
+
+.mensaje.error { color: #b00020; }
+.mensaje.ok    { color: #1b7a2f; }
+
+input[type="number"]::-webkit-outer-spin-button,
+input[type="number"]::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+input[type="number"] {
+    -moz-appearance: textfield;
+}
