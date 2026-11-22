@@ -28,7 +28,6 @@ async function cargarMedicos(idEspecialidad) {
         resetearMedicos();
         return;
     }
-
     selectMedico.disabled = true;
     selectMedico.replaceChildren(new Option("Cargando...", ""));
 
@@ -54,3 +53,42 @@ cargarSelectEspecialidades();
 selectEspecialidad.addEventListener("change", () => {
     cargarMedicos(selectEspecialidad.value);
 });
+
+
+async function cargarTurnoMedico(idMedico){
+    document.getElementById("turnosDisponibles").innerHTML = "";
+    if (!idMedico) return;
+    let data = await fetch(`${API_URL}/turnos/${idMedico}`);
+    data = await data.json();
+    console.log(data);
+    let turnos = data;
+    turnos.forEach((turno) => {
+        agregarTurno(turno.hora, turno.fecha);
+    });
+}
+
+selectMedico.addEventListener("change", () => {
+    cargarTurnoMedico(selectMedico.value);
+});
+
+function agregarTurno(hora, fecha) {
+    let turnos = document.getElementById("turnosDisponibles");
+
+    let cardTurno = document.createElement("div");
+    cardTurno.className = "cardTurno";
+
+    let cardHora = document.createElement("p");
+    cardHora.className = "cardHora";
+    cardHora.innerText = `Hora: ${hora}`;
+
+    let cardFecha = document.createElement("h2");
+    cardFecha.innerText = `${fecha.split("T")[0]}`;
+
+    let detallesTurno = document.createElement("div");
+    detallesTurno.className = "card-detallesTurno";
+
+    detallesTurno.append(cardFecha, cardHora);
+    cardTurno.appendChild(detallesTurno);
+
+    turnos.appendChild(cardTurno);
+}
