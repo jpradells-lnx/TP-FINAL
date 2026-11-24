@@ -1,13 +1,16 @@
--- ESPECIALIDADES (ids 1 a 6)
+-- ESPECIALIDADES (ids 1 a 9)
 INSERT INTO especialidades (nombre, descripcion, monto_consulta, duracion, medicosDisponibles) VALUES
 ('Clínica Médica', 'Atención general y control de salud del adulto', 18000, 30, TRUE),
 ('Pediatría', 'Atención de niños y adolescentes', 20000, 30, TRUE),
 ('Cardiología', 'Diagnóstico y control de enfermedades del corazón', 28000, 40, TRUE),
 ('Dermatología', 'Cuidado y tratamiento de la piel', 25000, 20, TRUE),
 ('Traumatología', 'Lesiones de huesos, músculos y articulaciones', 26000, 30, TRUE),
-('Oftalmología', 'Control de la vista y enfermedades oculares', 24000, 30, FALSE);
+('Oftalmología', 'Control de la vista y enfermedades oculares', 24000, 30, FALSE),
+('Ginecología', 'Salud de la mujer, controles y seguimiento', 24000, 30, TRUE),
+('Neurología', 'Diagnóstico de trastornos del sistema nervioso', 30000, 40, TRUE),
+('Nutrición', 'Planes alimentarios y control de peso', 17000, 30, TRUE);
 
--- MÉDICOS (ids 1 a 9; Oftalmología queda sin médicos a propósito)
+-- MÉDICOS (ids 1 a 15; Oftalmología queda sin médicos a propósito)
 INSERT INTO medicos (especialidad, nombre, apellido, fechaDeNacimiento, mail) VALUES
 (1, 'Laura', 'Fernández', '1978-03-14', 'laura.fernandez@turnosmedicos.com'),
 (1, 'Martín', 'Gómez', '1985-07-22', 'martin.gomez@turnosmedicos.com'),
@@ -17,9 +20,15 @@ INSERT INTO medicos (especialidad, nombre, apellido, fechaDeNacimiento, mail) VA
 (3, 'Valeria', 'Núñez', '1983-05-27', 'valeria.nunez@turnosmedicos.com'),
 (4, 'Carolina', 'Ibáñez', '1988-12-09', 'carolina.ibanez@turnosmedicos.com'),
 (5, 'Javier', 'Molina', '1980-04-16', 'javier.molina@turnosmedicos.com'),
-(5, 'Lucía', 'Benítez', '1990-08-03', 'lucia.benitez@turnosmedicos.com');
+(5, 'Lucía', 'Benítez', '1990-08-03', 'lucia.benitez@turnosmedicos.com'),
+(4, 'Paula', 'Medina', '1986-02-19', 'paula.medina@turnosmedicos.com'),
+(7, 'Natalia', 'Ruiz', '1981-10-11', 'natalia.ruiz@turnosmedicos.com'),
+(7, 'Florencia', 'Sosa', '1992-06-24', 'florencia.sosa@turnosmedicos.com'),
+(8, 'Gustavo', 'Ortiz', '1973-03-08', 'gustavo.ortiz@turnosmedicos.com'),
+(9, 'Agustina', 'Castro', '1989-12-01', 'agustina.castro@turnosmedicos.com'),
+(1, 'Pablo', 'Romero', '1984-05-17', 'pablo.romero@turnosmedicos.com');
 
--- PACIENTES (ids 1 a 8, datos inventados)
+-- PACIENTES (ids 1 a 16, datos inventados)
 INSERT INTO pacientes (dni, nombre, apellido, fechaDeNacimiento, historiaClinica) VALUES
 (30111222, 'Martina', 'López', '1992-02-11', 'Sin antecedentes relevantes.'),
 (28456789, 'Federico', 'Suárez', '1987-06-25', 'Control anual al día.'),
@@ -28,7 +37,15 @@ INSERT INTO pacientes (dni, nombre, apellido, fechaDeNacimiento, historiaClinica
 (22999000, 'Graciela', 'Domínguez', '1965-04-07', 'Seguimiento cardiológico.'),
 (45123456, 'Tomás', 'Acosta', '2015-09-14', 'Vacunas completas.'),
 (33444555, 'Julieta', 'Vega', '1991-01-28', NULL),
-(27888999, 'Ricardo', 'Silva', '1979-08-30', 'Control de presión arterial.');
+(27888999, 'Ricardo', 'Silva', '1979-08-30', 'Control de presión arterial.'),
+(38555666, 'Lautaro', 'Giménez', '1995-05-03', 'Alergia a la penicilina.'),
+(31666777, 'Valentina', 'Morales', '1989-03-21', NULL),
+(42333444, 'Santiago', 'Ríos', '2001-07-15', 'Consulta por acné.'),
+(29777111, 'Mariana', 'Torres', '1983-09-09', 'Plan alimentario en curso.'),
+(24555888, 'Hugo', 'Castillo', '1972-11-30', 'Hipertensión controlada.'),
+(36888222, 'Rocío', 'Luna', '1993-06-12', NULL),
+(39111444, 'Joaquín', 'Sánchez', '1998-02-27', 'Migrañas frecuentes.'),
+(50222111, 'Emma', 'Paz', '2018-04-05', 'Control de crecimiento.');
 
 -- TURNOS (fechas futuras, sin repetir médico + fecha + hora)
 INSERT INTO turnos (hora, fecha, estado, pacienteAsociado, medicoAsociado) VALUES
@@ -42,7 +59,7 @@ INSERT INTO turnos (hora, fecha, estado, pacienteAsociado, medicoAsociado) VALUE
 ('15:30', '2026-11-25', 'reservado', 7, 7),
 ('10:00', '2026-11-18', 'atendido', 2, 2),
 ('16:00', '2026-11-26', 'reservado', 1, 9),
-('16:00', '2026-11-26', 'reservado', 1, 9),
+('16:30', '2026-11-26', 'reservado', 7, 9),
 ('10:00', '2026-12-02', 'libre', NULL, 2),
 ('10:30', '2026-12-02', 'libre', NULL, 2),
 ('11:00', '2026-12-02', 'libre', NULL, 2),
@@ -51,4 +68,62 @@ INSERT INTO turnos (hora, fecha, estado, pacienteAsociado, medicoAsociado) VALUE
 ('09:00', '2026-12-03', 'libre', NULL, 3),
 ('14:00', '2026-12-04', 'libre', NULL, 4),
 ('14:30', '2026-12-04', 'libre', NULL, 4),
-('15:00', '2026-12-04', 'libre', NULL, 4);
+('15:00', '2026-12-04', 'libre', NULL, 4),
+-- reservados / atendidos / cancelados de los pacientes nuevos
+('11:00', '2026-11-27', 'reservado', 10, 11),
+('09:00', '2026-11-27', 'reservado', 15, 13),
+('10:00', '2026-11-30', 'reservado', 11, 10),
+('14:00', '2026-11-30', 'reservado', 12, 14),
+('10:00', '2026-11-26', 'reservado', 16, 4),
+('08:00', '2026-11-20', 'atendido', 13, 6),
+('16:00', '2026-11-19', 'atendido', 9, 15),
+('12:00', '2026-11-27', 'cancelado', 14, 12),
+-- turnos libres: todos los médicos tienen al menos uno (respetando la duración de cada especialidad)
+('09:00', '2026-12-01', 'libre', NULL, 1),
+('09:30', '2026-12-01', 'libre', NULL, 1),
+('10:00', '2026-12-01', 'libre', NULL, 1),
+('09:00', '2026-12-07', 'libre', NULL, 1),
+('09:30', '2026-12-07', 'libre', NULL, 1),
+('10:00', '2026-12-09', 'libre', NULL, 2),
+('10:30', '2026-12-09', 'libre', NULL, 2),
+('08:00', '2026-12-10', 'libre', NULL, 3),
+('08:30', '2026-12-10', 'libre', NULL, 3),
+('14:00', '2026-12-11', 'libre', NULL, 4),
+('14:30', '2026-12-11', 'libre', NULL, 4),
+('08:30', '2026-12-01', 'libre', NULL, 5),
+('09:10', '2026-12-01', 'libre', NULL, 5),
+('09:50', '2026-12-01', 'libre', NULL, 5),
+('08:30', '2026-12-09', 'libre', NULL, 5),
+('09:10', '2026-12-09', 'libre', NULL, 5),
+('14:00', '2026-12-02', 'libre', NULL, 6),
+('14:40', '2026-12-02', 'libre', NULL, 6),
+('15:20', '2026-12-02', 'libre', NULL, 6),
+('14:00', '2026-12-10', 'libre', NULL, 6),
+('15:00', '2026-12-03', 'libre', NULL, 7),
+('15:20', '2026-12-03', 'libre', NULL, 7),
+('15:40', '2026-12-03', 'libre', NULL, 7),
+('16:00', '2026-12-03', 'libre', NULL, 7),
+('15:00', '2026-12-02', 'libre', NULL, 8),
+('15:30', '2026-12-02', 'libre', NULL, 8),
+('16:00', '2026-12-02', 'libre', NULL, 8),
+('15:00', '2026-12-11', 'libre', NULL, 8),
+('16:00', '2026-12-04', 'libre', NULL, 9),
+('16:30', '2026-12-04', 'libre', NULL, 9),
+('17:00', '2026-12-04', 'libre', NULL, 9),
+('10:00', '2026-12-07', 'libre', NULL, 10),
+('10:20', '2026-12-07', 'libre', NULL, 10),
+('10:40', '2026-12-07', 'libre', NULL, 10),
+('11:00', '2026-12-01', 'libre', NULL, 11),
+('11:30', '2026-12-01', 'libre', NULL, 11),
+('12:00', '2026-12-01', 'libre', NULL, 11),
+('09:00', '2026-12-03', 'libre', NULL, 12),
+('09:30', '2026-12-03', 'libre', NULL, 12),
+('08:00', '2026-12-04', 'libre', NULL, 13),
+('08:40', '2026-12-04', 'libre', NULL, 13),
+('09:20', '2026-12-04', 'libre', NULL, 13),
+('13:00', '2026-12-09', 'libre', NULL, 14),
+('13:30', '2026-12-09', 'libre', NULL, 14),
+('14:00', '2026-12-09', 'libre', NULL, 14),
+('17:00', '2026-11-30', 'libre', NULL, 15),
+('17:30', '2026-11-30', 'libre', NULL, 15),
+('17:00', '2026-12-10', 'libre', NULL, 15);
