@@ -48,7 +48,21 @@ async function cargarMedicos(idEspecialidad) {
     }
 }
 
-cargarSelectEspecialidades();
+async function iniciar() {
+    const idEspecialidad = sessionStorage.getItem("especialidad");
+    sessionStorage.removeItem("especialidad");
+
+    await cargarSelectEspecialidades();
+
+    if (!idEspecialidad) return;
+
+    selectEspecialidad.value = idEspecialidad;
+    if (selectEspecialidad.value === idEspecialidad) {
+        cargarMedicos(idEspecialidad);
+    }
+}
+    
+iniciar();
 
 selectEspecialidad.addEventListener("change", () => {
     cargarMedicos(selectEspecialidad.value);
