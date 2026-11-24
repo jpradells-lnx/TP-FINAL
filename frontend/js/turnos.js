@@ -1,9 +1,63 @@
 const selectEspecialidad = document.getElementById("especialidad");
 const selectMedico = document.getElementById("idMedico");
+const contenedorTurnos = document.getElementById("turnosDisponibles");
+
+function mostrarMensajeTurnos(texto) {
+    const p = document.createElement("p");
+    p.innerText = texto;
+    contenedorTurnos.replaceChildren(p);
+}
 
 function resetearMedicos() {
     selectMedico.replaceChildren(new Option("Elegí primero una especialidad", ""));
     selectMedico.disabled = true;
+}
+
+function formatearFecha(fecha) {
+    const [anio, mes, dia] = fecha.split("-");
+    return `${dia}/${mes}/${anio}`;
+}
+
+function agregarTurno(hora, fecha) {
+    const cardTurno = document.createElement("div");
+    cardTurno.className = "cardTurno";
+
+    const cardHora = document.createElement("p");
+    cardHora.className = "cardHora";
+    cardHora.innerText = `Hora: ${hora}`;
+
+    const cardFecha = document.createElement("h2");
+    cardFecha.innerText = formatearFecha(fecha);
+
+    const detallesTurno = document.createElement("div");
+    detallesTurno.className = "card-detallesTurno";
+
+    detallesTurno.append(cardFecha, cardHora);
+    cardTurno.appendChild(detallesTurno);
+
+    contenedorTurnos.appendChild(cardTurno);
+}
+
+selectEspecialidad.addEventListener("change", () => {
+    cargarMedicos(selectEspecialidad.value);
+});
+
+selectMedico.addEventListener("change", () => {
+    cargarTurnoMedico(selectMedico.value);
+});
+
+async function iniciar() {
+    const idEspecialidad = sessionStorage.getItem("especialidad");
+    sessionStorage.removeItem("especialidad");
+
+    await cargarSelectEspecialidades();
+
+    if (!idEspecialidad) return;
+
+    selectEspecialidad.value = idEspecialidad;
+    if (selectEspecialidad.value === idEspecialidad) {
+        cargarMedicos(idEspecialidad);
+    }
 }
 
 async function cargarSelectEspecialidades() {
@@ -24,6 +78,8 @@ async function cargarSelectEspecialidades() {
 }
 
 async function cargarMedicos(idEspecialidad) {
+    contenedorTurnos.replaceChildren();
+
     if (!idEspecialidad) {
         resetearMedicos();
         return;
@@ -48,61 +104,33 @@ async function cargarMedicos(idEspecialidad) {
     }
 }
 
-async function iniciar() {
-    const idEspecialidad = sessionStorage.getItem("especialidad");
-    sessionStorage.removeItem("especialidad");
+async function cargarTurnoMedico(idMedico) {
+    if (!idMedico) {
+        contenedorTurnos.replaceChildren();
+        return;
+    }
+    mostrarMensajeTurnos("Cargando turnos...");
 
-    await cargarSelectEspecialidades();
+    try {
+        const respuesta = await fetch(`${API_URL}/turnos/${idMedico}`);
+        if (!respuesta.ok) throw new Error("Error " + respuesta.status);
 
-    if (!idEspecialidad) return;
+        const turnos = await respuesta.json();
 
-    selectEspecialidad.value = idEspecialidad;
-    if (selectEspecialidad.value === idEspecialidad) {
-        cargarMedicos(idEspecialidad);
+        if (selectMedico.value !== idMedico) return;
+
+        if (turnos.length === 0) {
+            mostrarMensajeTurnos("Este médico no tiene turnos disponibles.");
+            return;
+        }
+
+        contenedorTurnos.replaceChildren();
+        turnos.forEach((turno) => agregarTurno(turno.hora, turno.fecha));
+    } catch (err) {
+        if (selectMedico.value !== idMedico) return;
+        mostrarMensajeTurnos("No se pudieron cargar los turnos.");
+        console.error(err);
     }
 }
-    
+
 iniciar();
-
-selectEspecialidad.addEventListener("change", () => {
-    cargarMedicos(selectEspecialidad.value);
-});
-
-
-async function cargarTurnoMedico(idMedico){
-    document.getElementById("turnosDisponibles").innerHTML = "";
-    if (!idMedico) return;
-    let data = await fetch(`${API_URL}/turnos/${idMedico}`);
-    data = await data.json();
-    console.log(data);
-    let turnos = data;
-    turnos.forEach((turno) => {
-        agregarTurno(turno.hora, turno.fecha);
-    });
-}
-
-selectMedico.addEventListener("change", () => {
-    cargarTurnoMedico(selectMedico.value);
-});
-
-function agregarTurno(hora, fecha) {
-    let turnos = document.getElementById("turnosDisponibles");
-
-    let cardTurno = document.createElement("div");
-    cardTurno.className = "cardTurno";
-
-    let cardHora = document.createElement("p");
-    cardHora.className = "cardHora";
-    cardHora.innerText = `Hora: ${hora}`;
-
-    let cardFecha = document.createElement("h2");
-    cardFecha.innerText = `${fecha.split("T")[0]}`;
-
-    let detallesTurno = document.createElement("div");
-    detallesTurno.className = "card-detallesTurno";
-
-    detallesTurno.append(cardFecha, cardHora);
-    cardTurno.appendChild(detallesTurno);
-
-    turnos.appendChild(cardTurno);
-}

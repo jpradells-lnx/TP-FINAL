@@ -90,7 +90,9 @@ app.get("/api/turnos/:idMedico", async (req, res) => {
         const { idMedico } = req.params;
         const result = await db.query(`
         SELECT 
-        t.hora, t.fecha FROM turnos t WHERE t.estado = 'libre' AND t.medicoAsociado = $1 ORDER BY t.fecha, t.hora`,[idMedico]);
+        TO_CHAR(t.hora, 'HH24:MI') AS hora,
+        TO_CHAR(t.fecha, 'YYYY-MM-DD') AS fecha
+        FROM turnos t WHERE t.estado = 'libre' AND t.medicoAsociado = $1 ORDER BY t.fecha, t.hora`,[idMedico]);
         console.log("Resultado BD:", result.rows);
         res.json(result.rows);
     } catch (err) {
