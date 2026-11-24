@@ -83,3 +83,19 @@ app.get("/api/medicos", async (req, res) => {
         res.status(500).json({ error: "Error al obtener los médicos" });
     }
 });
+
+
+app.get("/api/turnos/:idMedico", async (req, res) => {
+    try {
+        const { idMedico } = req.params;
+        const result = await db.query(`
+        SELECT 
+        t.hora, t.fecha FROM turnos t WHERE t.estado = 'libre' AND t.medicoAsociado = $1 ORDER BY t.fecha, t.hora`,[idMedico]);
+        console.log("Resultado BD:", result.rows);
+        res.json(result.rows);
+    } catch (err) {
+        console.error(err);
+        res.status(500).json({ error: "Error al obtener los turnos" });
+    }
+})
+

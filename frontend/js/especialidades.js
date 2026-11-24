@@ -10,7 +10,7 @@ function agregarEspecialidad(id, nombre, descripcion, monto_consulta, duracion, 
     cardNombre.className = "card-name";
     cardNombre.innerText = nombre;
 
-     let titulo = document.createElement("h2");
+    let titulo = document.createElement("h2");
     titulo.innerText = nombre;
 
     let detalles = document.createElement("div");
@@ -30,18 +30,15 @@ function agregarEspecialidad(id, nombre, descripcion, monto_consulta, duracion, 
 
     detalles.append(descripcionTexto, monto, duracion_Consulta, medicos);
 
-    // Ocultamos los detalles al principio
     detalles.classList.add("oculto");
 
     cardNombre.addEventListener("click", () => {
-        // Cerramos las demás especialidades
         document.querySelectorAll(".card-detalles").forEach((detalle) => {
             if (detalle !== detalles) {
                 detalle.classList.add("oculto");
             }
         });
 
-        // Abrimos o cerramos la seleccionada
         detalles.classList.toggle("oculto");
     });
 
@@ -49,26 +46,14 @@ function agregarEspecialidad(id, nombre, descripcion, monto_consulta, duracion, 
     productos.appendChild(card);
 }
 
-
-function mostrarDetalle(nombre, descripcion, monto_consulta, duracion, medicos_asociados) {
-
-    contenido.innerHTML = "";
-
-   
-
-    contenido.append(titulo, descripcionTexto, monto, duracion_Consulta , medicos);
-
-}
-
 async function cargarEspecialidades(){
-    console.log
     let data = await fetch("http://localhost:3000/api/especialidades/");
     data = await data.json();
     console.log(data);
     let especialidades = data;
         especialidades.forEach((especialidad) => {
             agregarEspecialidad(especialidad.id, especialidad.nombre, especialidad.descripcion, especialidad.monto_consulta, especialidad.duracion, especialidad.medicos_asociados);
-        });
+    });
 }
 
 cargarEspecialidades();
