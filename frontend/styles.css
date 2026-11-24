@@ -255,6 +255,29 @@ input[type="number"] {
     line-height: 1.6;
 }
 
+.card-button {
+    margin-top: 12px;
+    padding: 12px 24px;
+    font-size: 16px;
+    font-family: 'Poppins', sans-serif;
+    color: white;
+    background-color: rgb(23, 45, 123);
+    border: none;
+    border-radius: 15px;
+    cursor: pointer;
+    transition: background-color 0.2s;
+}
+
+.card-button:hover {
+    background-color: rgb(133, 157, 245);
+    color: black;
+}
+
+.card-button:focus-visible {
+    outline: none;
+    box-shadow: 0 0 0 3px rgba(133, 157, 245, 0.5);
+}
+
 .oculto {
     display: none;
 }

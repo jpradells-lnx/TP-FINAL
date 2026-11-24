@@ -25,7 +25,7 @@ function agregarEspecialidad(especialidad) {
     sacarTurno.innerText = "Sacar turno con esta especialidad";
     sacarTurno.addEventListener("click", () => {
         sessionStorage.setItem("especialidad", id);
-        window.location.href = "http://localhost:8080/turnos.html";
+        window.location.href = "turnos.html";
     });
 
     detalles.append(
