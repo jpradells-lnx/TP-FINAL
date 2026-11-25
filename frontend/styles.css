@@ -325,3 +325,43 @@ input[type="number"] {
     font-weight: 600;
     margin: 0;
 }
+
+/* El radio de cada turno queda invisible: se selecciona clickeando la card */
+#form-turno .cardTurno input[type="radio"] {
+    position: absolute;
+    opacity: 0;
+    width: 0;
+    height: 0;
+    margin: 0;
+}
+
+#form-turno .cardTurno {
+    margin-top: 0;
+    font-weight: normal;
+}
+
+.cardTurno:has(input:checked) {
+    border: 2px solid rgb(133, 157, 245);
+    background-color: rgba(133, 157, 245, 0.12);
+}
+
+.cardTurno:has(input:focus-visible) {
+    box-shadow: 0 0 0 3px rgba(133, 157, 245, 0.5);
+}
+
+.mensaje-turno {
+    margin: 12px 0 0;
+    padding: 10px 12px;
+    border-radius: 8px;
+    font-weight: 600;
+}
+
+.mensaje-turno.exito {
+    background-color: #e6f6ea;
+    color: #1e6b34;
+}
+
+.mensaje-turno.error {
+    background-color: #fdeaea;
+    color: #a12626;
+}
