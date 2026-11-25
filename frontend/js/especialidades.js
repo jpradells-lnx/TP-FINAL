@@ -28,12 +28,27 @@ function agregarEspecialidad(especialidad) {
         window.location.href = "turnos.html";
     });
 
+    const eliminarEspecialidad = document.createElement("button");
+    eliminarEspecialidad.className = "card-button"
+    eliminarEspecialidad.innerText = "Eliminar";
+    eliminarEspecialidad.addEventListener("click", async () => { 
+        try {
+            const respuesta = await fetch(`${API_URL}/especialidades/${id}`, {
+                method: "DELETE",
+            });
+            if (!respuesta.ok) throw new Error("No se pudo eliminar la especialidad");
+            card.remove();
+        } catch (err) {
+            alert(err.message);
+        }})
+
     detalles.append(
         crearParrafo(descripcion || "Sin descripción"),
         crearParrafo(`Monto de consulta: $${monto_consulta}`),
         crearParrafo(`Duración: ${duracion} minutos`),
         crearParrafo(`Médicos asociados: ${medicos_asociados || "Sin médicos asignados"}`),
-        sacarTurno
+        sacarTurno,
+        eliminarEspecialidad
     );
 
     cardNombre.addEventListener("click", () => {
