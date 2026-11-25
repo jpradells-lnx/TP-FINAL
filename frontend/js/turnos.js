@@ -112,7 +112,7 @@ async function cargarTurnoMedico(idMedico) {
     mostrarMensajeTurnos("Cargando turnos...");
 
     try {
-        const respuesta = await fetch(`${API_URL}/turnos/${idMedico}`);
+        const respuesta = await fetch(`${API_URL}/medicos/${idMedico}/turnos?estado=libre`);
         if (!respuesta.ok) throw new Error("Error " + respuesta.status);
 
         const turnos = await respuesta.json();

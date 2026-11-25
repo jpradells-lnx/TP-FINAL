@@ -1,3 +1,5 @@
+export const ESTADOS_TURNO = ["libre", "reservado", "cancelado"];
+
 export function parseId(textId){
     const id = Number(textId);
 
