@@ -20,11 +20,20 @@ function agregarEspecialidad(especialidad) {
     const detalles = document.createElement("div");
     detalles.className = "card-detalles oculto";
 
+    const sacarTurno = document.createElement("button");
+    sacarTurno.className = "card-button"
+    sacarTurno.innerText = "Sacar turno con esta especialidad";
+    sacarTurno.addEventListener("click", () => {
+        sessionStorage.setItem("especialidad", id);
+        window.location.href = "turnos.html";
+    });
+
     detalles.append(
         crearParrafo(descripcion || "Sin descripción"),
         crearParrafo(`Monto de consulta: $${monto_consulta}`),
         crearParrafo(`Duración: ${duracion} minutos`),
-        crearParrafo(`Médicos asociados: ${medicos_asociados || "Sin médicos asignados"}`)
+        crearParrafo(`Médicos asociados: ${medicos_asociados || "Sin médicos asignados"}`),
+        sacarTurno
     );
 
     cardNombre.addEventListener("click", () => {
