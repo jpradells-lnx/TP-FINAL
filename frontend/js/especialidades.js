@@ -7,7 +7,7 @@ function crearParrafo(texto) {
 }
 
 function agregarEspecialidad(especialidad) {
-    const { id, nombre, descripcion, monto_consulta, duracion, medicos_asociados } = especialidad;
+    const { id, nombre, descripcion, monto_consulta, duracion, medicos } = especialidad;
 
     const card = document.createElement("div");
     card.className = "card";
@@ -46,7 +46,7 @@ function agregarEspecialidad(especialidad) {
         crearParrafo(descripcion || "Sin descripción"),
         crearParrafo(`Monto de consulta: $${monto_consulta}`),
         crearParrafo(`Duración: ${duracion} minutos`),
-        crearParrafo(`Médicos asociados: ${medicos_asociados || "Sin médicos asignados"}`),
+        crearParrafo(`Médicos asociados: ${medicos.length > 0 ? medicos.map((m) => `${m.nombre} ${m.apellido}`).join(", ") : "Sin médicos asignados"}`),
         sacarTurno,
         eliminarEspecialidad
     );
