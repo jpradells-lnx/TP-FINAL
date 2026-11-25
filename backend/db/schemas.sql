@@ -18,7 +18,7 @@ medicosDisponibles BOOLEAN
 
 CREATE TABLE medicos (
 ID SERIAL PRIMARY KEY,
-especialidad INT REFERENCES especialidades(id),
+especialidad INT REFERENCES especialidades(id) ON DELETE CASCADE,
 nombre VARCHAR(50) NOT NULL,
 apellido VARCHAR(50) NOT NULL,
 fechaDeNacimiento DATE NOT NULL,
@@ -32,5 +32,5 @@ hora TIME NOT NULL,
 fecha DATE NOT NULL,
 estado VARCHAR(20) NOT NULL,
 pacienteAsociado INT REFERENCES pacientes(id),
-medicoAsociado INT REFERENCES medicos(id)
+medicoAsociado INT REFERENCES medicos(id) ON DELETE CASCADE
 );

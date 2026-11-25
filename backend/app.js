@@ -8,11 +8,6 @@ const port = 3000;
 app.use(cors());
 app.use(express.json());
 
-/*app.get("/api/especialidades", async (req, res) => {
-  const result = await db.query("SELECT * FROM especialidades ORDER BY id");
-  res.json({ results: result.rows });
-});*/
-
 app.get("/api/especialidades/:id", async (req, res) => {
   const id = parseId(req.params.id);
 
@@ -101,3 +96,16 @@ app.get("/api/turnos/:idMedico", async (req, res) => {
     }
 })
 
+app.delete("/api/especialidades/:id", async (req, res) => {
+    try {
+        const result = await db.query("DELETE FROM especialidades WHERE id = $1", [req.params.id]);
+        if (result.rowCount === 0) {
+            res.sendStatus(404).json({ error: "Especialidad no encontrada" });
+            return;
+        }
+        res.sendStatus(204).send();
+    } catch (err) {
+        console.error(err);
+        res.status(500).json({ error: "Error al eliminar la especialidad" });
+    }
+});
