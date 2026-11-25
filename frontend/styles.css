@@ -365,3 +365,14 @@ input[type="number"] {
     background-color: #fdeaea;
     color: #a12626;
 }
+
+.mensaje-turno.info {
+    background-color: rgba(133, 157, 245, 0.12);
+    color: #2f3f7a;
+}
+
+/* Dentro de la grilla de turnos el mensaje ocupa todo el ancho */
+#turnosDisponibles .mensaje-turno {
+    grid-column: 1 / -1;
+    margin: 0;
+}

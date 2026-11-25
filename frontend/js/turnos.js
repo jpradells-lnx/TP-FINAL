@@ -15,9 +15,10 @@ function ocultarMensajeSacarTurno() {
     mensajeTurno.className = "mensaje-turno oculto";
 }
 
-function mostrarMensajeTurnos(texto) {
+function mostrarMensajeTurnos(texto, tipo = "info") {
     const p = document.createElement("p");
     p.innerText = texto;
+    p.className = `mensaje-turno ${tipo}`;
     contenedorTurnos.replaceChildren(p);
 }
 
@@ -163,7 +164,7 @@ async function cargarTurnoMedico(idMedico) {
         turnos.forEach(agregarTurno);
     } catch (err) {
         if (selectMedico.value !== idMedico) return;
-        mostrarMensajeTurnos("No se pudieron cargar los turnos.");
+        mostrarMensajeTurnos("No se pudieron cargar los turnos.", "error");
         console.error(err);
     }
 }
