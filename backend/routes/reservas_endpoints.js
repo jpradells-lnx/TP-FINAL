@@ -1,5 +1,5 @@
 import { Router } from "express";
-import { parseId } from "../utils/validaciones.js";
+import { parseId, parseDni } from "../utils/validaciones.js";
 import { getPacientePorDni, reservarTurno } from "../db/queries.js";
 
 const router = Router();
@@ -10,7 +10,7 @@ const router = Router();
 router.post("/", async (req, res) => {
     const { dni, especialidad, medico, turno } = req.body ?? {};
 
-    const dniPaciente = parseId(dni);
+    const dniPaciente = parseDni(dni);
     if (dniPaciente === null) return res.status(400).json({ error: "DNI inválido" });
 
     const idEspecialidad = parseId(especialidad);

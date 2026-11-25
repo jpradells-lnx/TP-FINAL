@@ -4,6 +4,7 @@ const contenedorTurnos = document.getElementById("turnosDisponibles");
 const formTurno = document.getElementById("form-turno");
 const botonPedir = document.getElementById("botonPedir");
 const mensajeTurno = document.getElementById("mensajeTurno");
+const inputDni = document.getElementById("dniPaciente");
 
 function mostrarMensajeSacarTurno(texto, tipo) {
     mensajeTurno.innerText = texto;
@@ -69,11 +70,34 @@ selectMedico.addEventListener("change", () => {
     cargarTurnoMedico(selectMedico.value);
 });
 
+// Solo deja escribir números en el DNI
+inputDni.addEventListener("input", () => {
+    inputDni.value = inputDni.value.replace(/\D/g, "");
+});
+
+// Valida el form y devuelve el mensaje de error, o null si está todo bien
+function validarFormTurno(datos) {
+    if (!datos.get("especialidad")) return "Elegí una especialidad.";
+    if (!/^[0-9]{8}$/.test(datos.get("dniPaciente"))) {
+        return "DNI inválido: tiene que tener exactamente 8 números.";
+    }
+    return null;
+}
+
 // Un <button> dentro de un <form> es type="submit" por defecto aunque no lo diga,
 // por eso sacarle el atributo no cambiaba nada. Hay que cancelar el submit del form.
+// El form tiene "novalidate" para que los errores se muestren en mensajeTurno
+// y no en el cartel del navegador.
 formTurno.addEventListener("submit", (event) => {
     event.preventDefault();
     const datos = new FormData(formTurno);
+
+    const error = validarFormTurno(datos);
+    if (error) {
+        mostrarMensajeSacarTurno(error, "error");
+        return;
+    }
+
     sacarTurnoNuevo(
         datos.get("dniPaciente"),
         datos.get("especialidad"),
