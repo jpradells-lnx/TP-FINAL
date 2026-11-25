@@ -66,3 +66,40 @@ export async function getTurnosDeMedico(idMedico, estado) {
     );
     return result.rows;
 }
+
+export async function getPacientePorDni(dni) {
+    const result = await db.query("SELECT id, nombre, apellido FROM pacientes WHERE dni = $1 LIMIT 1", [dni]);
+    return result.rows[0];
+}
+
+// Busca y reserva en una sola query el primer turno libre y futuro que cumpla los filtros:
+// siempre la especialidad, y opcionalmente un médico y/o un turno puntual.
+// FOR UPDATE SKIP LOCKED evita que dos pedidos simultáneos reserven el mismo turno.
+export async function reservarTurno({ idPaciente, idEspecialidad, idMedico, idTurno }) {
+    const result = await db.query(`
+        WITH elegido AS (
+            SELECT t.id
+            FROM turnos t
+            JOIN medicos m ON m.id = t.medicoAsociado
+            WHERE t.estado = 'libre'
+              AND m.especialidad = $2
+              AND ($3::INT IS NULL OR m.id = $3)
+              AND ($4::INT IS NULL OR t.id = $4)
+              AND t.fecha + t.hora > LOCALTIMESTAMP
+            ORDER BY t.fecha, t.hora
+            LIMIT 1
+            FOR UPDATE OF t SKIP LOCKED
+        )
+        UPDATE turnos t
+        SET estado = 'reservado', pacienteAsociado = $1
+        FROM elegido e, medicos m
+        WHERE t.id = e.id AND m.id = t.medicoAsociado
+        RETURNING
+            t.id,
+            TO_CHAR(t.fecha, 'YYYY-MM-DD') AS fecha,
+            TO_CHAR(t.hora, 'HH24:MI') AS hora,
+            JSON_BUILD_OBJECT('id', m.id, 'nombre', m.nombre, 'apellido', m.apellido) AS medico`,
+        [idPaciente, idEspecialidad, idMedico ?? null, idTurno ?? null]
+    );
+    return result.rows[0];
+}

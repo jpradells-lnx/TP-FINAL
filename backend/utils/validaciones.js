@@ -7,3 +7,11 @@ export function parseId(textId){
 
     return id;
 }
+
+
+// DNI: exactamente 8 dígitos. Devuelve el número o null si no es válido.
+export function parseDni(textDni) {
+    const texto = String(textDni ?? "");
+    if (!/^[0-9]{8}$/.test(texto)) return null;
+    return Number(texto);
+}

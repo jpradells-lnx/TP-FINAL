@@ -1,6 +1,6 @@
 import { Router } from "express";
-import { parseId } from "./esp_validaciones.js";
-import { getEspecialidades, getEspecialidad, borrarEspecialidad } from "./db/queries.js";
+import { parseId } from "../utils/validaciones.js";
+import { getEspecialidades, getEspecialidad, borrarEspecialidad } from "../db/queries.js";
 
 const router = Router();
 

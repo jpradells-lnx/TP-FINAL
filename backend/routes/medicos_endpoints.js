@@ -1,6 +1,6 @@
 import { Router } from "express";
-import { parseId, ESTADOS_TURNO } from "./esp_validaciones.js";
-import { getMedicosPorEspecialidad, existeEspecialidad, existeMedico, getTurnosDeMedico } from "./db/queries.js";
+import { parseId, ESTADOS_TURNO } from "../utils/validaciones.js";
+import { getMedicosPorEspecialidad, existeEspecialidad, existeMedico, getTurnosDeMedico } from "../db/queries.js";
 
 const router = Router();
 
