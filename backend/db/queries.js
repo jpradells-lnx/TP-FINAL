@@ -103,3 +103,11 @@ export async function reservarTurno({ idPaciente, idEspecialidad, idMedico, idTu
     );
     return result.rows[0];
 }
+
+
+export async function crearPaciente({dni, nombre, apellido, fechaDeNacimiento, historiaClinica}){
+    const result = await db.query(`INSERT INTO pacientes 
+        (dni, nombre, apellido, fechaDeNacimiento, historiaClinica) VALUES ($1,$2,$3,$4,$5) RETURNING *`,
+        [dni, nombre, apellido,fechaDeNacimiento, historiaClinica ?? null]);
+        return result.rows[0];
+} 

@@ -3,7 +3,7 @@ import cors from "cors";
 import especialidadesRouter from "./routes/esp_endpoints.js";
 import medicosRouter from "./routes/medicos_endpoints.js";
 import reservasRouter from "./routes/reservas_endpoints.js";
-
+import pacientesRouter from "./routes/pacientes_endpoints.js";
 const app = express();
 const PORT = process.env.PORT || 3000;
 
@@ -13,6 +13,7 @@ app.use(express.json());
 app.use("/api/especialidades", especialidadesRouter);
 app.use("/api/medicos", medicosRouter);
 app.use("/api/reservas", reservasRouter);
+app.use("/api/pacientes", pacientesRouter);
 
 app.use((req, res) => {
     res.status(404).json({ error: "Ruta no encontrada" });

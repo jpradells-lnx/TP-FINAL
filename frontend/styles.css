@@ -12,7 +12,7 @@
     font-size: 25px;
     padding: 8px 14px;
     color: black;
-    transition: background-color 0.2s;
+    transition: background-color 0.3s ease, box-shadow 0.3s ease;
     font-family: sans-serif;
 }
 
@@ -179,7 +179,7 @@ body {
     border: none;
     border-radius: 15px;
     cursor: pointer;
-    transition: background-color 0.2s;
+    transition: background-color 0.3s ease, box-shadow 0.3s ease;
 }
 
 #form-turno button:hover {
@@ -222,7 +222,7 @@ input[type="number"] {
     border-radius: 12px;
     overflow: hidden;
     width: 500px;
-    transition: box-shadow 0.3s ease;
+    transition: background-color 0.3s ease, box-shadow 0.3s ease;
     text-align: center;
 }
 
@@ -265,7 +265,7 @@ input[type="number"] {
     border: none;
     border-radius: 15px;
     cursor: pointer;
-    transition: background-color 0.2s;
+    transition: background-color 0.3s ease, box-shadow 0.3s ease;
 }
 
 .card-button:hover {
@@ -297,7 +297,7 @@ input[type="number"] {
     text-align: center;
     cursor: pointer;
     width: 100px;
-    transition: 0.2s ease;
+    transition: background-color 0.3s ease, box-shadow 0.3s ease;
 }
 
 .cardTurno:hover {
@@ -375,4 +375,120 @@ input[type="number"] {
 #turnosDisponibles .mensaje-turno {
     grid-column: 1 / -1;
     margin: 0;
+}
+
+/*REGISTRO*/
+
+.tarjeta-registro {
+    background-color: rgba(160, 221, 247, 0.599);
+    border: 2px solid rgb(23, 45, 123);
+    border-top: 4px solid rgb(23, 45, 123);
+    border-radius: 10px;
+    max-width: 550px;
+    margin: 30px auto;
+    padding: 30px 36px;
+    box-sizing: border-box;
+    font-family: Arial, sans-serif;
+}
+
+.tarjeta-registro h2 {
+    text-align: center;
+    font-size: 28px;
+    margin: 0 0 35px;
+}
+
+.tarjeta-registro form {
+    display: flex;
+    flex-direction: column;
+}
+
+.tarjeta-registro label {
+    font-size: 18px;
+    font-weight: bold;
+    margin-bottom: 8px;
+}
+
+.tarjeta-registro input,
+.tarjeta-registro textarea {
+    width: 100%;
+    padding: 14px;
+    margin-bottom: 20px;
+    border: 2px solid #2f3f7a;
+    border-radius: 10px;
+    background-color: white;
+    font-size: 18px;
+    font-family: inherit;
+    box-sizing: border-box;
+}
+
+.tarjeta-registro textarea {
+    min-height: 100px;
+    resize: vertical;
+}
+
+.tarjeta-registro input:focus,
+.tarjeta-registro textarea:focus {
+    outline: none;
+    box-shadow: 0 0 0 4px #9db9f5;
+}
+
+.tarjeta-registro button {
+    background-color: rgb(23, 45, 123);
+    color: white;
+    border: none;
+    border-radius: 18px;
+    padding: 16px;
+    font-size: 20px;
+    cursor: pointer;
+    margin-top: 10px;
+    transition: background-color 0.3s ease, box-shadow 0.3s ease;
+
+}
+
+.tarjeta-registro button:hover {
+    background-color: rgb(133, 157, 245);
+}
+
+#mensajeRegistro:empty {
+    display: none;
+}
+
+#mensajeRegistro {
+    margin-top: 20px;
+    padding: 12px;
+    border-radius: 10px;
+}
+
+#mensajeRegistro.error {
+    background-color: #fce8e8;
+    color: #b71c1c;
+}
+
+#mensajeRegistro.exito {
+    background-color: #dcfce7;
+    color: #166534;
+}
+
+#btnRegistro {
+    background-color: rgb(23, 45, 123);
+    color: white;
+    padding: 15px;
+    border-radius: 18px;
+    text-align: center;
+    text-decoration: none;
+    margin-top: 15px;
+    transition: background-color 0.3s ease, box-shadow 0.3s ease;
+}
+#btnRegistro:hover {
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+    background-color: rgb(133, 157, 245);
+}
+
+
+#btnRegistro[hidden] {
+    display: none;
+}
+
+#btnRegistro:not([hidden]) {
+    display: block;
 }
