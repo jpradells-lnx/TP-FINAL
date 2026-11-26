@@ -227,15 +227,32 @@ input[type="number"] {
 .card {
     background-color: white;
     border: 2px solid rgb(23, 45, 123);
+    border-top-width: 4px; /* siempre 4px: si cambiara en hover, la tarjeta crecería y empujaría al resto */
     border-radius: 12px;
     overflow: hidden;
-    transition: background-color 0.3s ease, box-shadow 0.3s ease;
+    transition: transform 0.15s ease, box-shadow 0.15s ease, border-color 0.15s ease;
     text-align: center;
 }
 
+/* transform no afecta el layout: la tarjeta "sube" sin mover a las demás */
 .card:hover {
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
-    border-top: 4px solid  rgb(36, 65, 169);
+    transform: translateY(-4px) scale(1.02);
+    box-shadow: 0 10px 24px rgba(23, 45, 123, 0.25);
+    border-color: rgb(36, 65, 169);
+}
+
+.card:active {
+    transform: translateY(-1px) scale(1.01);
+    box-shadow: 0 4px 10px rgba(23, 45, 123, 0.2);
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .card,
+    .card:hover,
+    .card:active {
+        transform: none;
+        transition: none;
+    }
 }
 
 .card-name {
@@ -252,8 +269,13 @@ input[type="number"] {
     color: #243746;
 }
 
+.card-name {
+    transition: background-color 0.15s ease, color 0.15s ease;
+}
+
 .card-name:hover {
-    background-color: #f0f7fb;
+    background-color: #e3ecff;
+    color: rgb(23, 45, 123);
 }
 
 /* Al abrir la tarjeta, el título vuelve a su alto normal para que no quede un cuadrado gigante arriba de los detalles */
