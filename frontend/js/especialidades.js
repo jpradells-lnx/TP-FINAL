@@ -25,15 +25,26 @@ function ubicarPanel() {
 }
 
 function abrirPanel(card, detalles) {
-    const estabaAbierta = card === cardAbierta;
-    cerrarPanel();
-    if (estabaAbierta) return;
+    if (card === cardAbierta) {
+        cerrarPanel();
+        return;
+    }
+
+    const panelAnterior = panelAbierto;
+    if (cardAbierta) cardAbierta.classList.remove("card-seleccionada");
 
     panelAbierto = detalles;
     cardAbierta = card;
     card.classList.add("card-seleccionada");
     ubicarPanel();
-    panelAbierto.scrollIntoView({ behavior: "smooth", block: "nearest" });
+
+    if (panelAnterior) {
+        const topAntes = card.getBoundingClientRect().top;
+        panelAnterior.remove();
+        window.scrollBy(0, card.getBoundingClientRect().top - topAntes);
+    }
+
+    panelAbierto.scrollIntoView({ behavior: "smooth", block: "start" });
 }
 
 window.addEventListener("resize", ubicarPanel);
