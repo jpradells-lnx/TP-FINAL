@@ -1,4 +1,7 @@
 .navbar {
+    position: sticky;
+    top: 0;
+    z-index: 10;
     border-bottom: 3px solid rgb(23, 45, 123);
     padding: 15px 10px;
     display: flex;
@@ -36,6 +39,7 @@
 }
 
 body {
+    margin: 0;
     font-family: Arial;
     background-color: #e2edf583;
     color: #111111;
@@ -82,6 +86,9 @@ body {
 }
 
 .footer {
+    position: sticky;
+    bottom: 0;
+    z-index: 10;
     font-size: 17px;
     padding: 20px 45px;
     border-top: 3px solid rgb(23, 45, 123);
@@ -276,6 +283,7 @@ input[type="number"] {
 
 .panel-detalles {
     grid-column: 1 / -1;
+    scroll-margin: 100px 0 160px;
     position: relative;
     background-color: white;
     border: 2px solid rgb(36, 65, 169);
