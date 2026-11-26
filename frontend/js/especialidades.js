@@ -1,4 +1,30 @@
 const contenedorEspecialidades = document.getElementById("especialidades");
+const dialogoAgregar = document.getElementById("dialogo-esp");
+const formAgregar = document.getElementById("form-esp");
+
+document.getElementById("agregar").addEventListener("click", () => {
+    dialogoAgregar.showModal();
+});
+document.getElementById("cancelar").addEventListener("click", () => {
+    dialogoAgregar.close();
+});
+
+formAgregar.addEventListener("submit", async (event) => {
+    event.preventDefault();
+    const datos = Object.fromEntries(new FormData(formAgregar))
+    const respuesta = await fetch(`${API_URL}/especialidades`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(datos),
+    });
+    if (!respuesta.ok) {
+        alert("No se pudo agregar la especialidad");
+        return;
+    }
+    formAgregar.reset();
+    dialogoAgregar.close();
+    cargarEspecialidades();
+});
 
 let panelAbierto = null;
 let cardAbierta = null;

@@ -15,8 +15,20 @@
             </div>
         </div>
 
-
        <div id="especialidades"></div>
+
+        <button id="agregar">+ Agregar Especialidad</button>
+
+        <dialog id="dialogo-esp">
+            <form id="form-esp">
+                <input name="nombre" type="text" placeholder="Nombre de la especialidad" required>
+                <input name="descripcion" type="text" placeholder="Descripción de la especialidad" required>
+                <input name="monto" type="number" min="0" placeholder="Monto de la consulta" required>
+                <input name="duracion" type="number" min="10" placeholder="Duración (en minutos)" required>
+                <button type="submit">Agregar</button>
+                <button type="button" id="cancelar">Cancelar</button>
+            </form>
+        </dialog>
 
         <div class="footer">
             <div class="footer-encabezado">

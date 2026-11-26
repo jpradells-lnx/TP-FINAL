@@ -15,3 +15,12 @@ export function parseDni(textDni) {
     if (!/^[0-9]{8}$/.test(texto)) return null;
     return Number(texto);
 }
+
+export function validarEspecialidad(nombre, descripcion, monto_consulta, duracion) {
+    if (!nombre?.trim() || !descripcion?.trim()) return null;
+    const monto = Number(monto_consulta);
+    const dur = Number(duracion);
+    if (!Number.isFinite(monto) || monto < 0) return null;
+    if (!Number.isInteger(dur) || dur < 10) return null;
+    return { nombre: nombre.trim(), descripcion: descripcion.trim(), monto, duracion: dur};
+};
