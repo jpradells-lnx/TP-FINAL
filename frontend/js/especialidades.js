@@ -44,6 +44,42 @@ function crearParrafo(texto) {
     return p;
 }
 
+function crearDescripcion(descripcion) {
+    const contenedor = document.createElement("div");
+    contenedor.className = "descripcion";
+
+    if (!descripcion) {
+        contenedor.append(crearParrafo("Sin descripción"));
+        return contenedor;
+    }
+
+    const [resumen, practicas] = descripcion.split("\n");
+
+    const parrafoResumen = crearParrafo(resumen);
+    parrafoResumen.className = "descripcion-resumen";
+    contenedor.append(parrafoResumen);
+
+    if (practicas) {
+        const [titulo, lista] = practicas.split(":");
+
+        const tituloPracticas = document.createElement("h3");
+        tituloPracticas.className = "practicas-titulo";
+        tituloPracticas.innerText = titulo;
+
+        const ul = document.createElement("ul");
+        ul.className = "practicas-lista";
+        lista.replace(/\.$/, "").split(",").forEach((practica) => {
+            const li = document.createElement("li");
+            li.innerText = practica.trim();
+            ul.append(li);
+        });
+
+        contenedor.append(tituloPracticas, ul);
+    }
+
+    return contenedor;
+}
+
 function agregarEspecialidad(especialidad) {
     const { id, nombre, descripcion, monto_consulta, duracion, medicos } = especialidad;
 
@@ -82,7 +118,7 @@ function agregarEspecialidad(especialidad) {
         }})
 
     detalles.append(
-        crearParrafo(descripcion || "Sin descripción"),
+        crearDescripcion(descripcion),
         crearParrafo(`Monto de consulta: $${monto_consulta}`),
         crearParrafo(`Duración: ${duracion} minutos`),
         crearParrafo(`Médicos asociados: ${medicos.length > 0 ? medicos.map((m) => `${m.nombre} ${m.apellido}`).join(", ") : "Sin médicos asignados"}`),

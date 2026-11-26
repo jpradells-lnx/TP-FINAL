@@ -304,6 +304,48 @@ input[type="number"] {
     margin: 12px 6px 0;
 }
 
+.descripcion {
+    text-align: left;
+    max-width: 900px;
+    margin: 0 auto 10px;
+}
+
+.descripcion-resumen {
+    font-size: 17px;
+    color: #243746;
+}
+
+.practicas-titulo {
+    margin: 18px 0 10px;
+    font-size: 18px;
+    color: rgb(23, 45, 123);
+}
+
+.practicas-lista {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+    gap: 8px 20px;
+    margin: 0 0 30px;
+    padding: 0;
+    list-style: none;
+}
+
+.practicas-lista li {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    line-height: 1.4;
+}
+
+.practicas-lista li::before {
+    content: "";
+    flex-shrink: 0;
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background-color: rgb(36, 65, 169);
+}
+
 .card-button {
     margin-top: 12px;
     padding: 12px 24px;
