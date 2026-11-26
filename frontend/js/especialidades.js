@@ -38,6 +38,12 @@ function abrirPanel(card, detalles) {
 
 window.addEventListener("resize", ubicarPanel);
 
+document.addEventListener("click", (event) => {
+    if (!panelAbierto) return;
+    if (event.target.closest(".panel-detalles, .card")) return;
+    cerrarPanel();
+});
+
 function crearParrafo(texto) {
     const p = document.createElement("p");
     p.innerText = texto;
