@@ -1,9 +1,152 @@
 const contenedorEspecialidades = document.getElementById("especialidades");
 
+let panelAbierto = null;
+let cardAbierta = null;
+
+function cerrarPanel() {
+    if (panelAbierto) panelAbierto.remove();
+    if (cardAbierta) cardAbierta.classList.remove("card-seleccionada");
+    panelAbierto = null;
+    cardAbierta = null;
+}
+
+function ultimaCardDeLaFila(card) {
+    const cards = [...contenedorEspecialidades.querySelectorAll(".card")];
+    const fila = cards.filter((c) => c.offsetTop === card.offsetTop);
+    return fila[fila.length - 1];
+}
+
+function ubicarPanel() {
+    if (!panelAbierto) return;
+    panelAbierto.remove();
+    ultimaCardDeLaFila(cardAbierta).after(panelAbierto);
+    const centroCard = cardAbierta.offsetLeft + cardAbierta.offsetWidth / 2;
+    panelAbierto.style.setProperty("--flecha-x", `${centroCard - panelAbierto.offsetLeft}px`);
+}
+
+function abrirPanel(card, detalles) {
+    if (card === cardAbierta) {
+        cerrarPanel();
+        return;
+    }
+
+    const panelAnterior = panelAbierto;
+    if (cardAbierta) cardAbierta.classList.remove("card-seleccionada");
+
+    panelAbierto = detalles;
+    cardAbierta = card;
+    card.classList.add("card-seleccionada");
+    ubicarPanel();
+
+    if (panelAnterior) {
+        const topAntes = card.getBoundingClientRect().top;
+        panelAnterior.remove();
+        window.scrollBy(0, card.getBoundingClientRect().top - topAntes);
+    }
+
+    panelAbierto.scrollIntoView({ behavior: "smooth", block: "start" });
+}
+
+window.addEventListener("resize", ubicarPanel);
+
+document.addEventListener("click", (event) => {
+    if (!panelAbierto) return;
+    if (event.target.closest(".panel-detalles, .card")) return;
+    cerrarPanel();
+});
+
 function crearParrafo(texto) {
     const p = document.createElement("p");
     p.innerText = texto;
     return p;
+}
+
+function crearDescripcion(descripcion) {
+    const contenedor = document.createElement("div");
+    contenedor.className = "descripcion";
+
+    if (!descripcion) {
+        contenedor.append(crearParrafo("Sin descripción"));
+        return contenedor;
+    }
+
+    const [resumen, practicas] = descripcion.split("\n");
+
+    const parrafoResumen = crearParrafo(resumen);
+    parrafoResumen.className = "descripcion-resumen";
+    contenedor.append(parrafoResumen);
+
+    if (practicas) {
+        const [titulo, lista] = practicas.split(":");
+
+        const tituloPracticas = document.createElement("h3");
+        tituloPracticas.className = "practicas-titulo";
+        tituloPracticas.innerText = titulo;
+
+        const ul = document.createElement("ul");
+        ul.className = "practicas-lista";
+        lista.replace(/\.$/, "").split(",").forEach((practica) => {
+            const li = document.createElement("li");
+            li.innerText = practica.trim();
+            ul.append(li);
+        });
+
+        contenedor.append(tituloPracticas, ul);
+    }
+
+    return contenedor;
+}
+
+function crearDato(etiqueta, valor) {
+    const dato = document.createElement("div");
+    dato.className = "panel-dato";
+
+    const spanEtiqueta = document.createElement("span");
+    spanEtiqueta.className = "panel-dato-etiqueta";
+    spanEtiqueta.innerText = etiqueta;
+
+    const spanValor = document.createElement("span");
+    spanValor.className = "panel-dato-valor";
+    spanValor.innerText = valor;
+
+    dato.append(spanEtiqueta, spanValor);
+    return dato;
+}
+
+function crearMedicos(medicos) {
+    const bloque = document.createElement("div");
+    bloque.className = "panel-dato";
+
+    const etiqueta = document.createElement("span");
+    etiqueta.className = "panel-dato-etiqueta";
+    etiqueta.innerText = "Médicos";
+    bloque.append(etiqueta);
+
+    if (medicos.length === 0) {
+        const vacio = document.createElement("span");
+        vacio.className = "sin-medicos";
+        vacio.innerText = "Sin médicos asignados";
+        bloque.append(vacio);
+        return bloque;
+    }
+
+    const lista = document.createElement("ul");
+    lista.className = "medicos-lista";
+    medicos.forEach((m) => {
+        const li = document.createElement("li");
+
+        const avatar = document.createElement("span");
+        avatar.className = "medico-avatar";
+        avatar.innerText = `${m.nombre[0]}${m.apellido[0]}`;
+
+        const nombreMedico = document.createElement("span");
+        nombreMedico.innerText = `Dr/a. ${m.nombre} ${m.apellido}`;
+
+        li.append(avatar, nombreMedico);
+        lista.append(li);
+    });
+    bloque.append(lista);
+    return bloque;
 }
 
 function agregarEspecialidad(especialidad) {
@@ -18,10 +161,10 @@ function agregarEspecialidad(especialidad) {
     cardNombre.innerText = nombre;
 
     const detalles = document.createElement("div");
-    detalles.className = "card-detalles oculto";
+    detalles.className = "panel-detalles";
 
     const sacarTurno = document.createElement("button");
-    sacarTurno.className = "card-button"
+    sacarTurno.className = "panel-boton panel-boton-principal";
     sacarTurno.innerText = "Sacar turno con esta especialidad";
     sacarTurno.addEventListener("click", () => {
         sessionStorage.setItem("especialidad", id);
@@ -29,36 +172,56 @@ function agregarEspecialidad(especialidad) {
     });
 
     const eliminarEspecialidad = document.createElement("button");
-    eliminarEspecialidad.className = "card-button"
-    eliminarEspecialidad.innerText = "Eliminar";
+    eliminarEspecialidad.className = "panel-boton panel-boton-eliminar";
+    eliminarEspecialidad.innerText = "Eliminar especialidad";
     eliminarEspecialidad.addEventListener("click", async () => { 
         try {
             const respuesta = await fetch(`${API_URL}/especialidades/${id}`, {
                 method: "DELETE",
             });
             if (!respuesta.ok) throw new Error("No se pudo eliminar la especialidad");
+            if (card === cardAbierta) cerrarPanel();
             card.remove();
         } catch (err) {
             alert(err.message);
         }})
 
-    detalles.append(
-        crearParrafo(descripcion || "Sin descripción"),
-        crearParrafo(`Monto de consulta: $${monto_consulta}`),
-        crearParrafo(`Duración: ${duracion} minutos`),
-        crearParrafo(`Médicos asociados: ${medicos.length > 0 ? medicos.map((m) => `${m.nombre} ${m.apellido}`).join(", ") : "Sin médicos asignados"}`),
-        sacarTurno,
-        eliminarEspecialidad
+    const encabezado = document.createElement("div");
+    encabezado.className = "panel-encabezado";
+
+    const titulo = document.createElement("h2");
+    titulo.innerText = nombre;
+
+    const cerrar = document.createElement("button");
+    cerrar.className = "panel-cerrar";
+    cerrar.innerText = "✕";
+    cerrar.title = "Cerrar";
+    cerrar.addEventListener("click", cerrarPanel);
+
+    encabezado.append(titulo, cerrar);
+
+    const cuerpo = document.createElement("div");
+    cuerpo.className = "panel-cuerpo";
+
+    const datos = document.createElement("div");
+    datos.className = "panel-datos";
+    datos.append(
+        crearDato("Consulta", `$${Number(monto_consulta).toLocaleString("es-AR")}`),
+        crearDato("Duración", `${duracion} min`),
+        crearMedicos(medicos)
     );
 
-    cardNombre.addEventListener("click", () => {
-        document.querySelectorAll(".card-detalles").forEach((detalle) => {
-            if (detalle !== detalles) detalle.classList.add("oculto");
-        });
-        detalles.classList.toggle("oculto");
-    });
+    cuerpo.append(crearDescripcion(descripcion), datos);
 
-    card.append(cardNombre, detalles);
+    const acciones = document.createElement("div");
+    acciones.className = "panel-acciones";
+    acciones.append(eliminarEspecialidad, sacarTurno);
+
+    detalles.append(encabezado, cuerpo, acciones);
+
+    cardNombre.addEventListener("click", () => abrirPanel(card, detalles));
+
+    card.append(cardNombre);
     contenedorEspecialidades.appendChild(card);
 }
 

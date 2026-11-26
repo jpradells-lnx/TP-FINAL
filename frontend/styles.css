@@ -1,41 +1,73 @@
 .navbar {
-    border-bottom: 3px solid rgb(23, 45, 123);
-    padding: 15px 10px;
+    position: sticky;
+    top: 0;
+    z-index: 10;
     display: flex;
-    justify-content: flex-start;
-    gap: 5px;
+    align-items: center;
+    gap: 20px;
+    padding: 0 0 0 45px;
     background-color: white;
+    border-bottom: 2px solid rgb(36, 65, 169);
+    box-shadow: 0 6px 16px rgba(23, 45, 123, 0.12);
+}
+
+.navbar-links {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+    padding: 12px 45px 12px 0;
+}
+
+.navbar .logo {
+    flex-shrink: 0;
+    padding: 8px 16px;
+    font-family: sans-serif;
+    font-size: 20px;
+    line-height: 1.2;
+    font-weight: bold;
+    letter-spacing: 2px;
+    color: white;
+    background: linear-gradient(135deg, rgb(23, 45, 123), rgb(36, 65, 169));
+    border: none;
+    border-left: 4px solid rgb(23, 45, 123);
+    border-radius: 10px;
+    transition: none;
+}
+
+.navbar .logo:hover {
+    background: linear-gradient(135deg, rgb(23, 45, 123), rgb(36, 65, 169));
+    transform: none;
 }
 
 .navbar a {
-    text-decoration: none;
-    font-size: 25px;
-    padding: 8px 14px;
-    color: black;
-    transition: background-color 0.3s ease, box-shadow 0.3s ease;
+    padding: 8px 16px;
     font-family: sans-serif;
+    font-size: 20px;
+    line-height: 1.2;
+    text-decoration: none;
+    color: #243746;
+    background-color: rgba(133, 157, 245, 0.12);
+    border-left: 4px solid rgb(36, 65, 169);
+    border-radius: 10px;
+    transition: background-color 0.15s ease, color 0.15s ease, transform 0.15s ease;
 }
 
 .navbar a:hover {
-    background-color: rgb(133, 157, 245);
-    text-decoration: underline 2px;
-    border-radius: 15px;
+    background-color: rgba(133, 157, 245, 0.3);
+    transform: translateY(-2px);
 }
 
-.titulo h1 {
-    font-family: 'Poppins', sans-serif;
-    font-size: 60px;
-    text-align: center;
-    text-decoration: underline 4px solid rgb(17, 44, 143);
-    margin: 25px;
+.navbar a.active {
+    background: linear-gradient(90deg, rgb(23, 45, 123), rgb(36, 65, 169));
+    color: white;
 }
 
-.contenido li {
-    margin-bottom: 50px;
-    line-height: 1.4;
+html {
+    scrollbar-gutter: stable;
 }
 
 body {
+    margin: 0;
     font-family: Arial;
     background-color: #e2edf583;
     color: #111111;
@@ -44,68 +76,231 @@ body {
         flex-direction: column;
 }
 
-.contenido {
-    display: flex;
-    gap: 50px;
-    font-size: 20px;
+.hero {
+    margin: 30px auto;
+    width: 100%;
     max-width: 1000px;
-    margin: 0 auto 45px auto;
-    padding: 0 20px;
-}
-
-.izquierda, .derecha {
-    flex: 1;
-    border: 2px solid rgb(23, 45, 123);
-    border-top: 4px solid rgb(23, 45, 123);
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.06);
-    border-radius: 8px;
-    padding: 25px;
-    background-color: rgba(160, 221, 247, 0.599);
-}
-
-.izquierda ul {
-    list-style: none;
-    padding-left: 5px;
-}
-.izquierda li::before {
-    content: "✓ ";
-    font-weight: bold;
-    color: rgb(23, 45, 123);
-}
-
-.derecha ol {
-    padding-left: 25px;
-}
-
-.contenido h3 {
+    box-sizing: border-box;
+    padding: 45px 30px;
+    background: linear-gradient(90deg, rgb(23, 45, 123), rgb(36, 65, 169));
+    border-radius: 16px;
+    box-shadow: 0 12px 30px rgba(23, 45, 123, 0.2);
+    color: white;
     text-align: center;
 }
 
-.footer {
-    font-size: 17px;
-    padding: 20px 45px;
-    border-top: 3px solid rgb(23, 45, 123);
-    background-color: white;
-    margin-top: auto;
-}
-
-.footer p {
+.hero h1 {
+    margin: 0;
     font-family: 'Poppins', sans-serif;
-    font-size: 22px;
-    margin-top: 0px;
-    margin-bottom: 0px;
+    font-size: 56px;
+    letter-spacing: 0.5px;
 }
 
-.footer ul { 
-    list-style: none;
+.hero-subtitulo {
+    margin: 12px 0 28px;
+    font-size: 20px;
+    color: rgba(255, 255, 255, 0.85);
+}
+
+.hero-acciones {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 14px;
+}
+
+.hero-boton {
+    display: inline-block;
+    text-decoration: none;
     font-size: 18px;
-    margin-top: 5px;
 }
 
-.navbar a.active {
+.hero .panel-boton-principal {
+    border-color: white;
+    background-color: white;
+    color: rgb(23, 45, 123);
+}
+
+.hero .panel-boton-principal:hover {
+    background-color: rgb(225, 232, 255);
+    box-shadow: 0 6px 14px rgba(0, 0, 0, 0.25);
+}
+
+.hero-boton-secundario {
+    border: 2px solid white;
+    background-color: transparent;
+    color: white;
+}
+
+.hero-boton-secundario:hover {
+    background-color: rgba(255, 255, 255, 0.15);
+}
+
+.contenido {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 30px;
+    width: 100%;
+    max-width: 1000px;
+    box-sizing: border-box;
+    margin: 0 auto 45px;
+    padding: 0;
+    font-size: 18px;
+}
+
+.inicio-tarjeta {
+    display: flex;
+    flex-direction: column;
+    flex: 1 1 380px;
+    background-color: white;
+    border: 2px solid rgb(36, 65, 169);
+    border-radius: 16px;
+    box-shadow: 0 8px 20px rgba(23, 45, 123, 0.12);
+    overflow: hidden;
+    transition: transform 0.15s ease, box-shadow 0.15s ease;
+}
+
+.inicio-tarjeta:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 12px 26px rgba(23, 45, 123, 0.22);
+}
+
+.inicio-tarjeta-encabezado {
+    padding: 16px 24px;
+    background: linear-gradient(90deg, rgb(23, 45, 123), rgb(36, 65, 169));
+    color: white;
+}
+
+.inicio-tarjeta-encabezado h3 {
+    margin: 0;
+    font-size: 21px;
+}
+
+.beneficios-lista {
+    flex: 1;
+    justify-content: center;
+}
+
+.contacto {
+    width: 100%;
+    max-width: 1000px;
+    box-sizing: border-box;
+    margin: 0 auto 45px;
+}
+
+.contacto-lista {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 16px;
+    margin: 0;
+    padding: 22px 24px 26px;
+    list-style: none;
+}
+
+.contacto-lista li {
+    flex: 1 1 280px;
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    padding: 12px 16px;
+    background-color: rgba(133, 157, 245, 0.12);
+    border-left: 4px solid rgb(36, 65, 169);
+    border-radius: 10px;
+    color: #243746;
+}
+
+.contacto-lista .inicio-icono {
+    background-color: white;
+    border: 2px solid rgb(36, 65, 169);
+}
+
+.link-turno {
+    display: inline-block;
+    padding: 2px 12px;
+    border-radius: 999px;
     background-color: rgb(23, 45, 123);
     color: white;
-    border-radius: 15px;
+    font-weight: bold;
+    text-decoration: none;
+    transition: background-color 0.15s ease, transform 0.15s ease, box-shadow 0.15s ease;
+}
+
+.link-turno:hover {
+    background-color: rgb(36, 65, 169);
+    transform: translateY(-1px);
+    box-shadow: 0 4px 10px rgba(23, 45, 123, 0.3);
+}
+
+.pasos-intro {
+    margin: 20px 24px 0;
+    color: #5a6b8c;
+}
+
+.beneficios-lista,
+.pasos-lista {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    margin: 0;
+    padding: 22px 24px 26px;
+    list-style: none;
+}
+
+.beneficios-lista li,
+.pasos-lista li {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    padding: 12px 16px;
+    background-color: rgba(133, 157, 245, 0.12);
+    border-left: 4px solid rgb(36, 65, 169);
+    border-radius: 10px;
+    line-height: 1.4;
+    color: #243746;
+}
+
+.inicio-icono {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    width: 34px;
+    height: 34px;
+    border-radius: 50%;
+    background-color: rgb(23, 45, 123);
+    color: white;
+    font-size: 15px;
+    font-weight: bold;
+}
+
+.footer {
+    position: sticky;
+    bottom: 0;
+    z-index: 10;
+    margin-top: auto;
+    background-color: white;
+    border-top: 2px solid rgb(36, 65, 169);
+    box-shadow: 0 -6px 16px rgba(23, 45, 123, 0.12);
+}
+
+.footer-encabezado {
+    padding: 8px 45px;
+    background: linear-gradient(90deg, rgb(23, 45, 123), rgb(36, 65, 169));
+    color: white;
+}
+
+.footer-encabezado h3 {
+    margin: 0;
+    font-size: 18px;
+}
+
+.footer .contacto-lista {
+    padding: 12px 45px;
+    gap: 12px;
+}
+
+.footer .contacto-lista li {
+    padding: 8px 14px;
 }
 
 .form-contenedor {
@@ -209,29 +404,49 @@ input[type="number"] {
 
 /*Especialidades*/
 #especialidades {
-    display: flex;
-    flex-direction: column;
-    gap: 12px;
-    max-width: 900px;
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    align-items: start;
+    gap: 16px;
+    width: 100%;
+    max-width: 1140px;
+    box-sizing: border-box;
     margin: 30px auto;
+    padding: 0 20px;
+}
+
+#especialidades > p {
+    grid-column: 1 / -1;
+    text-align: center;
 }
 
 .card {
     background-color: white;
     border: 2px solid rgb(23, 45, 123);
+    border-top-width: 4px;
     border-radius: 12px;
     overflow: hidden;
-    width: 500px;
-    transition: background-color 0.3s ease, box-shadow 0.3s ease;
+    transition: transform 0.15s ease, box-shadow 0.15s ease, border-color 0.15s ease;
     text-align: center;
 }
 
 .card:hover {
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
-    border-top: 4px solid  rgb(36, 65, 169);
+    transform: translateY(-4px) scale(1.02);
+    box-shadow: 0 10px 24px rgba(23, 45, 123, 0.25);
+    border-color: rgb(36, 65, 169);
+}
+
+.card:active {
+    transform: translateY(-1px) scale(1.01);
+    box-shadow: 0 4px 10px rgba(23, 45, 123, 0.2);
 }
 
 .card-name {
+    aspect-ratio: 1 / 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-sizing: border-box;
     padding: 20px;
     margin: 0;
     font-size: 18px;
@@ -240,42 +455,250 @@ input[type="number"] {
     color: #243746;
 }
 
+.card-name {
+    transition: background-color 0.15s ease, color 0.15s ease;
+}
+
 .card-name:hover {
-    background-color: #f0f7fb;
+    background-color: #e3ecff;
+    color: rgb(23, 45, 123);
 }
 
-.card-detalles {
-    padding: 20px;
-    background-color:  rgba(133, 157, 245, 0.401);
-    border-top: 1px solid #ddd;
+.card-seleccionada {
+    border-color: rgb(36, 65, 169);
+    box-shadow: 0 6px 16px rgba(23, 45, 123, 0.25);
 }
 
-.card-detalles p {
-    margin: 10px 0;
-    line-height: 1.6;
+.panel-detalles {
+    grid-column: 1 / -1;
+    scroll-margin: 100px 0 140px;
+    position: relative;
+    background-color: white;
+    border: 2px solid rgb(36, 65, 169);
+    border-radius: 16px;
+    box-shadow: 0 12px 30px rgba(23, 45, 123, 0.2);
+    font-family: Arial, sans-serif;
 }
 
-.card-button {
-    margin-top: 12px;
+.panel-detalles::before {
+    content: "";
+    position: absolute;
+    top: -12px;
+    left: var(--flecha-x, 50%);
+    width: 20px;
+    height: 20px;
+    background-color: rgb(23, 45, 123);
+    border-top: 2px solid rgb(36, 65, 169);
+    border-left: 2px solid rgb(36, 65, 169);
+    transform: translateX(-50%) rotate(45deg);
+}
+
+.panel-encabezado {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 18px 28px;
+    background: linear-gradient(90deg, rgb(23, 45, 123), rgb(36, 65, 169));
+    border-radius: 13px 13px 0 0;
+    color: white;
+}
+
+.panel-encabezado h2 {
+    margin: 0;
+    font-size: 26px;
+    letter-spacing: 0.5px;
+}
+
+.panel-cerrar {
+    width: 36px;
+    height: 36px;
+    border: none;
+    border-radius: 50%;
+    background-color: rgba(255, 255, 255, 0.15);
+    color: white;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background-color 0.15s ease;
+}
+
+.panel-cerrar:hover {
+    background-color: rgba(255, 255, 255, 0.35);
+}
+
+.panel-cuerpo {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 28px;
+    padding: 26px 28px 10px;
+}
+
+.descripcion {
+    flex: 2 1 420px;
+    text-align: left;
+}
+
+.descripcion-resumen {
+    margin: 0;
+    font-size: 17px;
+    line-height: 1.7;
+    color: #243746;
+}
+
+.practicas-titulo {
+    margin: 22px 0 12px;
+    padding-bottom: 6px;
+    font-size: 15px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    color: rgb(23, 45, 123);
+    border-bottom: 2px solid rgba(133, 157, 245, 0.5);
+}
+
+.practicas-lista {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+    gap: 8px 20px;
+    margin: 0 0 20px;
+    padding: 0;
+    list-style: none;
+}
+
+.practicas-lista li {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    line-height: 1.4;
+    color: #243746;
+}
+
+.practicas-lista li::before {
+    content: "";
+    flex-shrink: 0;
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background-color: rgb(36, 65, 169);
+}
+
+.panel-datos {
+    flex: 1 1 260px;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.panel-dato {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    padding: 14px 18px;
+    background-color: rgba(133, 157, 245, 0.12);
+    border-left: 4px solid rgb(36, 65, 169);
+    border-radius: 10px;
+    text-align: left;
+}
+
+.panel-dato-etiqueta {
+    font-size: 13px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    color: #5a6b8c;
+}
+
+.panel-dato-valor {
+    font-size: 24px;
+    font-weight: bold;
+    color: rgb(23, 45, 123);
+}
+
+.medicos-lista {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    margin: 4px 0 0;
+    padding: 0;
+    list-style: none;
+}
+
+.medicos-lista li {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    color: #243746;
+}
+
+.medico-avatar {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    width: 34px;
+    height: 34px;
+    border-radius: 50%;
+    background-color: rgb(23, 45, 123);
+    color: white;
+    font-size: 13px;
+    font-weight: bold;
+}
+
+.sin-medicos {
+    align-self: flex-start;
+    padding: 4px 12px;
+    border-radius: 999px;
+    background-color: #fdeaea;
+    color: #a12626;
+    font-weight: 600;
+    font-size: 14px;
+}
+
+.panel-acciones {
+    display: flex;
+    justify-content: flex-end;
+    flex-wrap: wrap;
+    gap: 12px;
+    padding: 18px 28px 22px;
+    border-top: 1px solid #e3e8f5;
+}
+
+.panel-boton {
     padding: 12px 24px;
     font-size: 16px;
     font-family: 'Poppins', sans-serif;
-    color: white;
-    background-color: rgb(23, 45, 123);
-    border: none;
     border-radius: 15px;
     cursor: pointer;
-    transition: background-color 0.3s ease, box-shadow 0.3s ease;
+    transition: background-color 0.15s ease, color 0.15s ease, transform 0.15s ease, box-shadow 0.15s ease;
 }
 
-.card-button:hover {
-    background-color: rgb(133, 157, 245);
-    color: black;
+.panel-boton:hover {
+    transform: translateY(-2px);
 }
 
-.card-button:focus-visible {
+.panel-boton:focus-visible {
     outline: none;
     box-shadow: 0 0 0 3px rgba(133, 157, 245, 0.5);
+}
+
+.panel-boton-principal {
+    border: 2px solid rgb(23, 45, 123);
+    background-color: rgb(23, 45, 123);
+    color: white;
+}
+
+.panel-boton-principal:hover {
+    background-color: rgb(36, 65, 169);
+    box-shadow: 0 6px 14px rgba(23, 45, 123, 0.3);
+}
+
+.panel-boton-eliminar {
+    border: 2px solid #a12626;
+    background-color: white;
+    color: #a12626;
+}
+
+.panel-boton-eliminar:hover {
+    background-color: #a12626;
+    color: white;
 }
 
 .oculto {
@@ -326,7 +749,6 @@ input[type="number"] {
     margin: 0;
 }
 
-/* El radio de cada turno queda invisible: se selecciona clickeando la card */
 #form-turno .cardTurno input[type="radio"] {
     position: absolute;
     opacity: 0;
@@ -371,7 +793,6 @@ input[type="number"] {
     color: #2f3f7a;
 }
 
-/* Dentro de la grilla de turnos el mensaje ocupa todo el ancho */
 #turnosDisponibles .mensaje-turno {
     grid-column: 1 / -1;
     margin: 0;
@@ -447,26 +868,6 @@ input[type="number"] {
 
 .tarjeta-registro button:hover {
     background-color: rgb(133, 157, 245);
-}
-
-#mensajeRegistro:empty {
-    display: none;
-}
-
-#mensajeRegistro {
-    margin-top: 20px;
-    padding: 12px;
-    border-radius: 10px;
-}
-
-#mensajeRegistro.error {
-    background-color: #fce8e8;
-    color: #b71c1c;
-}
-
-#mensajeRegistro.exito {
-    background-color: #dcfce7;
-    color: #166534;
 }
 
 #btnRegistro {

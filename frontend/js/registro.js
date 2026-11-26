@@ -14,22 +14,22 @@ async function agregarPaciente(dni, nombre, apellido, fechaDeNacimiento, histori
             })
         });
 
-        const datos = await respuesta.json();
+        const datos = await respuesta.json().catch(() => ({}));
 
         if (!respuesta.ok) {
-            mensaje.textContent = datos.error;
-            mensaje.className = "error";
+            mensaje.textContent = datos.error ?? "No se pudo registrar al paciente";
+            mensaje.className = "mensaje-turno error";
             return;
         }
 
         mensaje.textContent = "¡Paciente registrado correctamente!";
-        mensaje.className = "exito";
+        mensaje.className = "mensaje-turno exito";
 
         document.getElementById("formPaciente").reset();
 
     } catch (error) {
         mensaje.textContent = "No se pudo conectar con el servidor";
-        mensaje.className = "error";
+        mensaje.className = "mensaje-turno error";
         console.error(error);
     }
 }
