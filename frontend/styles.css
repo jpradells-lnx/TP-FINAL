@@ -213,7 +213,9 @@ input[type="number"] {
     grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
     align-items: start;
     gap: 16px;
-    max-width: 1100px;
+    width: 100%;
+    max-width: 1140px;
+    box-sizing: border-box;
     margin: 30px auto;
     padding: 0 20px;
 }
@@ -275,11 +277,11 @@ input[type="number"] {
 .panel-detalles {
     grid-column: 1 / -1;
     position: relative;
-    padding: 20px 30px;
-    background-color: rgb(205, 213, 251);
+    background-color: white;
     border: 2px solid rgb(36, 65, 169);
-    border-radius: 12px;
-    text-align: center;
+    border-radius: 16px;
+    box-shadow: 0 12px 30px rgba(23, 45, 123, 0.2);
+    font-family: Arial, sans-serif;
 }
 
 .panel-detalles::before {
@@ -289,43 +291,79 @@ input[type="number"] {
     left: var(--flecha-x, 50%);
     width: 20px;
     height: 20px;
-    background-color: rgb(205, 213, 251);
+    background-color: rgb(23, 45, 123);
     border-top: 2px solid rgb(36, 65, 169);
     border-left: 2px solid rgb(36, 65, 169);
     transform: translateX(-50%) rotate(45deg);
 }
 
-.panel-detalles p {
-    margin: 10px 0;
-    line-height: 1.6;
+.panel-encabezado {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 18px 28px;
+    background: linear-gradient(90deg, rgb(23, 45, 123), rgb(36, 65, 169));
+    border-radius: 13px 13px 0 0;
+    color: white;
 }
 
-.panel-detalles .card-button {
-    margin: 12px 6px 0;
+.panel-encabezado h2 {
+    margin: 0;
+    font-size: 26px;
+    letter-spacing: 0.5px;
+}
+
+.panel-cerrar {
+    width: 36px;
+    height: 36px;
+    border: none;
+    border-radius: 50%;
+    background-color: rgba(255, 255, 255, 0.15);
+    color: white;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background-color 0.15s ease;
+}
+
+.panel-cerrar:hover {
+    background-color: rgba(255, 255, 255, 0.35);
+}
+
+.panel-cuerpo {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 28px;
+    padding: 26px 28px 10px;
 }
 
 .descripcion {
+    flex: 2 1 420px;
     text-align: left;
-    max-width: 900px;
-    margin: 0 auto 10px;
 }
 
 .descripcion-resumen {
+    margin: 0;
     font-size: 17px;
+    line-height: 1.7;
     color: #243746;
 }
 
 .practicas-titulo {
-    margin: 18px 0 10px;
-    font-size: 18px;
+    margin: 22px 0 12px;
+    padding-bottom: 6px;
+    font-size: 15px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
     color: rgb(23, 45, 123);
+    border-bottom: 2px solid rgba(133, 157, 245, 0.5);
 }
 
 .practicas-lista {
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+    grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
     gap: 8px 20px;
-    margin: 0 0 30px;
+    margin: 0 0 20px;
     padding: 0;
     list-style: none;
 }
@@ -335,6 +373,7 @@ input[type="number"] {
     align-items: center;
     gap: 10px;
     line-height: 1.4;
+    color: #243746;
 }
 
 .practicas-lista li::before {
@@ -346,27 +385,124 @@ input[type="number"] {
     background-color: rgb(36, 65, 169);
 }
 
-.card-button {
-    margin-top: 12px;
+.panel-datos {
+    flex: 1 1 260px;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.panel-dato {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    padding: 14px 18px;
+    background-color: rgba(133, 157, 245, 0.12);
+    border-left: 4px solid rgb(36, 65, 169);
+    border-radius: 10px;
+    text-align: left;
+}
+
+.panel-dato-etiqueta {
+    font-size: 13px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    color: #5a6b8c;
+}
+
+.panel-dato-valor {
+    font-size: 24px;
+    font-weight: bold;
+    color: rgb(23, 45, 123);
+}
+
+.medicos-lista {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    margin: 4px 0 0;
+    padding: 0;
+    list-style: none;
+}
+
+.medicos-lista li {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    color: #243746;
+}
+
+.medico-avatar {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    width: 34px;
+    height: 34px;
+    border-radius: 50%;
+    background-color: rgb(23, 45, 123);
+    color: white;
+    font-size: 13px;
+    font-weight: bold;
+}
+
+.sin-medicos {
+    align-self: flex-start;
+    padding: 4px 12px;
+    border-radius: 999px;
+    background-color: #fdeaea;
+    color: #a12626;
+    font-weight: 600;
+    font-size: 14px;
+}
+
+.panel-acciones {
+    display: flex;
+    justify-content: flex-end;
+    flex-wrap: wrap;
+    gap: 12px;
+    padding: 18px 28px 22px;
+    border-top: 1px solid #e3e8f5;
+}
+
+.panel-boton {
     padding: 12px 24px;
     font-size: 16px;
     font-family: 'Poppins', sans-serif;
-    color: white;
-    background-color: rgb(23, 45, 123);
-    border: none;
     border-radius: 15px;
     cursor: pointer;
-    transition: background-color 0.3s ease, box-shadow 0.3s ease;
+    transition: background-color 0.15s ease, color 0.15s ease, transform 0.15s ease, box-shadow 0.15s ease;
 }
 
-.card-button:hover {
-    background-color: rgb(133, 157, 245);
-    color: black;
+.panel-boton:hover {
+    transform: translateY(-2px);
 }
 
-.card-button:focus-visible {
+.panel-boton:focus-visible {
     outline: none;
     box-shadow: 0 0 0 3px rgba(133, 157, 245, 0.5);
+}
+
+.panel-boton-principal {
+    border: 2px solid rgb(23, 45, 123);
+    background-color: rgb(23, 45, 123);
+    color: white;
+}
+
+.panel-boton-principal:hover {
+    background-color: rgb(36, 65, 169);
+    box-shadow: 0 6px 14px rgba(23, 45, 123, 0.3);
+}
+
+.panel-boton-eliminar {
+    border: 2px solid #a12626;
+    background-color: white;
+    color: #a12626;
+}
+
+.panel-boton-eliminar:hover {
+    background-color: #a12626;
+    color: white;
 }
 
 .oculto {

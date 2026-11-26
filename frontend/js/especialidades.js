@@ -80,6 +80,58 @@ function crearDescripcion(descripcion) {
     return contenedor;
 }
 
+function crearDato(etiqueta, valor) {
+    const dato = document.createElement("div");
+    dato.className = "panel-dato";
+
+    const spanEtiqueta = document.createElement("span");
+    spanEtiqueta.className = "panel-dato-etiqueta";
+    spanEtiqueta.innerText = etiqueta;
+
+    const spanValor = document.createElement("span");
+    spanValor.className = "panel-dato-valor";
+    spanValor.innerText = valor;
+
+    dato.append(spanEtiqueta, spanValor);
+    return dato;
+}
+
+function crearMedicos(medicos) {
+    const bloque = document.createElement("div");
+    bloque.className = "panel-dato";
+
+    const etiqueta = document.createElement("span");
+    etiqueta.className = "panel-dato-etiqueta";
+    etiqueta.innerText = "Médicos";
+    bloque.append(etiqueta);
+
+    if (medicos.length === 0) {
+        const vacio = document.createElement("span");
+        vacio.className = "sin-medicos";
+        vacio.innerText = "Sin médicos asignados";
+        bloque.append(vacio);
+        return bloque;
+    }
+
+    const lista = document.createElement("ul");
+    lista.className = "medicos-lista";
+    medicos.forEach((m) => {
+        const li = document.createElement("li");
+
+        const avatar = document.createElement("span");
+        avatar.className = "medico-avatar";
+        avatar.innerText = `${m.nombre[0]}${m.apellido[0]}`;
+
+        const nombreMedico = document.createElement("span");
+        nombreMedico.innerText = `Dr/a. ${m.nombre} ${m.apellido}`;
+
+        li.append(avatar, nombreMedico);
+        lista.append(li);
+    });
+    bloque.append(lista);
+    return bloque;
+}
+
 function agregarEspecialidad(especialidad) {
     const { id, nombre, descripcion, monto_consulta, duracion, medicos } = especialidad;
 
@@ -95,7 +147,7 @@ function agregarEspecialidad(especialidad) {
     detalles.className = "panel-detalles";
 
     const sacarTurno = document.createElement("button");
-    sacarTurno.className = "card-button"
+    sacarTurno.className = "panel-boton panel-boton-principal";
     sacarTurno.innerText = "Sacar turno con esta especialidad";
     sacarTurno.addEventListener("click", () => {
         sessionStorage.setItem("especialidad", id);
@@ -103,8 +155,8 @@ function agregarEspecialidad(especialidad) {
     });
 
     const eliminarEspecialidad = document.createElement("button");
-    eliminarEspecialidad.className = "card-button"
-    eliminarEspecialidad.innerText = "Eliminar";
+    eliminarEspecialidad.className = "panel-boton panel-boton-eliminar";
+    eliminarEspecialidad.innerText = "Eliminar especialidad";
     eliminarEspecialidad.addEventListener("click", async () => { 
         try {
             const respuesta = await fetch(`${API_URL}/especialidades/${id}`, {
@@ -117,14 +169,38 @@ function agregarEspecialidad(especialidad) {
             alert(err.message);
         }})
 
-    detalles.append(
-        crearDescripcion(descripcion),
-        crearParrafo(`Monto de consulta: $${monto_consulta}`),
-        crearParrafo(`Duración: ${duracion} minutos`),
-        crearParrafo(`Médicos asociados: ${medicos.length > 0 ? medicos.map((m) => `${m.nombre} ${m.apellido}`).join(", ") : "Sin médicos asignados"}`),
-        sacarTurno,
-        eliminarEspecialidad
+    const encabezado = document.createElement("div");
+    encabezado.className = "panel-encabezado";
+
+    const titulo = document.createElement("h2");
+    titulo.innerText = nombre;
+
+    const cerrar = document.createElement("button");
+    cerrar.className = "panel-cerrar";
+    cerrar.innerText = "✕";
+    cerrar.title = "Cerrar";
+    cerrar.addEventListener("click", cerrarPanel);
+
+    encabezado.append(titulo, cerrar);
+
+    const cuerpo = document.createElement("div");
+    cuerpo.className = "panel-cuerpo";
+
+    const datos = document.createElement("div");
+    datos.className = "panel-datos";
+    datos.append(
+        crearDato("Consulta", `$${Number(monto_consulta).toLocaleString("es-AR")}`),
+        crearDato("Duración", `${duracion} min`),
+        crearMedicos(medicos)
     );
+
+    cuerpo.append(crearDescripcion(descripcion), datos);
+
+    const acciones = document.createElement("div");
+    acciones.className = "panel-acciones";
+    acciones.append(eliminarEspecialidad, sacarTurno);
+
+    detalles.append(encabezado, cuerpo, acciones);
 
     cardNombre.addEventListener("click", () => abrirPanel(card, detalles));
 
