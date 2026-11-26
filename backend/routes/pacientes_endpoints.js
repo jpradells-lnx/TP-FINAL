@@ -4,7 +4,6 @@ import { getPacientePorDni, crearPaciente } from "../db/queries.js";
 
 const router = Router();
 
-// Letras (incluye tildes y ñ), espacios, apóstrofes y guiones. Hasta 50 caracteres (VARCHAR(50)).
 const REGEX_NOMBRE = /^[\p{L}][\p{L} '-]{0,49}$/u;
 const MAX_HISTORIA_CLINICA = 1000;
 const EDAD_MINIMA = 3;
@@ -32,7 +31,6 @@ router.post("/", async (req, res) => {
     }
     const [anio, mes, dia] = fechaDeNacimiento.split("-").map(Number);
     const fecha = new Date(anio, mes - 1, dia);
-    // Rechaza fechas inexistentes como 1990-02-31 (JS las "corre" al mes siguiente)
     if (fecha.getFullYear() !== anio || fecha.getMonth() !== mes - 1 || fecha.getDate() !== dia) {
         return res.status(400).json({ error: "Fecha de nacimiento inválida" });
     }

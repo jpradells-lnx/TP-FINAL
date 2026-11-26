@@ -211,14 +211,13 @@ input[type="number"] {
 #especialidades {
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
-    align-items: start; /* al abrir una tarjeta no se estiran las de su fila */
+    align-items: start;
     gap: 16px;
     max-width: 1100px;
     margin: 30px auto;
     padding: 0 20px;
 }
 
-/* Mensajes como "No hay especialidades cargadas." ocupan todo el ancho */
 #especialidades > p {
     grid-column: 1 / -1;
     text-align: center;
@@ -227,14 +226,13 @@ input[type="number"] {
 .card {
     background-color: white;
     border: 2px solid rgb(23, 45, 123);
-    border-top-width: 4px; /* siempre 4px: si cambiara en hover, la tarjeta crecería y empujaría al resto */
+    border-top-width: 4px;
     border-radius: 12px;
     overflow: hidden;
     transition: transform 0.15s ease, box-shadow 0.15s ease, border-color 0.15s ease;
     text-align: center;
 }
 
-/* transform no afecta el layout: la tarjeta "sube" sin mover a las demás */
 .card:hover {
     transform: translateY(-4px) scale(1.02);
     box-shadow: 0 10px 24px rgba(23, 45, 123, 0.25);
@@ -246,17 +244,8 @@ input[type="number"] {
     box-shadow: 0 4px 10px rgba(23, 45, 123, 0.2);
 }
 
-@media (prefers-reduced-motion: reduce) {
-    .card,
-    .card:hover,
-    .card:active {
-        transform: none;
-        transition: none;
-    }
-}
-
 .card-name {
-    aspect-ratio: 1 / 1; /* tarjeta cerrada = cuadrada */
+    aspect-ratio: 1 / 1;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -278,20 +267,41 @@ input[type="number"] {
     color: rgb(23, 45, 123);
 }
 
-/* Al abrir la tarjeta, el título vuelve a su alto normal para que no quede un cuadrado gigante arriba de los detalles */
-.card:has(.card-detalles:not(.oculto)) .card-name {
-    aspect-ratio: auto;
+.card-seleccionada {
+    border-color: rgb(36, 65, 169);
+    box-shadow: 0 6px 16px rgba(23, 45, 123, 0.25);
 }
 
-.card-detalles {
-    padding: 20px;
-    background-color:  rgba(133, 157, 245, 0.401);
-    border-top: 1px solid #ddd;
+.panel-detalles {
+    grid-column: 1 / -1;
+    position: relative;
+    padding: 20px 30px;
+    background-color: rgb(205, 213, 251);
+    border: 2px solid rgb(36, 65, 169);
+    border-radius: 12px;
+    text-align: center;
 }
 
-.card-detalles p {
+.panel-detalles::before {
+    content: "";
+    position: absolute;
+    top: -12px;
+    left: var(--flecha-x, 50%);
+    width: 20px;
+    height: 20px;
+    background-color: rgb(205, 213, 251);
+    border-top: 2px solid rgb(36, 65, 169);
+    border-left: 2px solid rgb(36, 65, 169);
+    transform: translateX(-50%) rotate(45deg);
+}
+
+.panel-detalles p {
     margin: 10px 0;
     line-height: 1.6;
+}
+
+.panel-detalles .card-button {
+    margin: 12px 6px 0;
 }
 
 .card-button {
@@ -365,7 +375,6 @@ input[type="number"] {
     margin: 0;
 }
 
-/* El radio de cada turno queda invisible: se selecciona clickeando la card */
 #form-turno .cardTurno input[type="radio"] {
     position: absolute;
     opacity: 0;
@@ -410,7 +419,6 @@ input[type="number"] {
     color: #2f3f7a;
 }
 
-/* Dentro de la grilla de turnos el mensaje ocupa todo el ancho */
 #turnosDisponibles .mensaje-turno {
     grid-column: 1 / -1;
     margin: 0;

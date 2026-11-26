@@ -1,5 +1,43 @@
 const contenedorEspecialidades = document.getElementById("especialidades");
 
+let panelAbierto = null;
+let cardAbierta = null;
+
+function cerrarPanel() {
+    if (panelAbierto) panelAbierto.remove();
+    if (cardAbierta) cardAbierta.classList.remove("card-seleccionada");
+    panelAbierto = null;
+    cardAbierta = null;
+}
+
+function ultimaCardDeLaFila(card) {
+    const cards = [...contenedorEspecialidades.querySelectorAll(".card")];
+    const fila = cards.filter((c) => c.offsetTop === card.offsetTop);
+    return fila[fila.length - 1];
+}
+
+function ubicarPanel() {
+    if (!panelAbierto) return;
+    panelAbierto.remove();
+    ultimaCardDeLaFila(cardAbierta).after(panelAbierto);
+    const centroCard = cardAbierta.offsetLeft + cardAbierta.offsetWidth / 2;
+    panelAbierto.style.setProperty("--flecha-x", `${centroCard - panelAbierto.offsetLeft}px`);
+}
+
+function abrirPanel(card, detalles) {
+    const estabaAbierta = card === cardAbierta;
+    cerrarPanel();
+    if (estabaAbierta) return;
+
+    panelAbierto = detalles;
+    cardAbierta = card;
+    card.classList.add("card-seleccionada");
+    ubicarPanel();
+    panelAbierto.scrollIntoView({ behavior: "smooth", block: "nearest" });
+}
+
+window.addEventListener("resize", ubicarPanel);
+
 function crearParrafo(texto) {
     const p = document.createElement("p");
     p.innerText = texto;
@@ -18,7 +56,7 @@ function agregarEspecialidad(especialidad) {
     cardNombre.innerText = nombre;
 
     const detalles = document.createElement("div");
-    detalles.className = "card-detalles oculto";
+    detalles.className = "panel-detalles";
 
     const sacarTurno = document.createElement("button");
     sacarTurno.className = "card-button"
@@ -37,6 +75,7 @@ function agregarEspecialidad(especialidad) {
                 method: "DELETE",
             });
             if (!respuesta.ok) throw new Error("No se pudo eliminar la especialidad");
+            if (card === cardAbierta) cerrarPanel();
             card.remove();
         } catch (err) {
             alert(err.message);
@@ -51,14 +90,9 @@ function agregarEspecialidad(especialidad) {
         eliminarEspecialidad
     );
 
-    cardNombre.addEventListener("click", () => {
-        document.querySelectorAll(".card-detalles").forEach((detalle) => {
-            if (detalle !== detalles) detalle.classList.add("oculto");
-        });
-        detalles.classList.toggle("oculto");
-    });
+    cardNombre.addEventListener("click", () => abrirPanel(card, detalles));
 
-    card.append(cardNombre, detalles);
+    card.append(cardNombre);
     contenedorEspecialidades.appendChild(card);
 }
 
