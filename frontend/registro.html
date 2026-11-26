@@ -20,7 +20,7 @@
     <form id="formPaciente">
 
         <label for="dni">DNI</label>
-        <input type="text" id="dniPaciente" name="dniPaciente" inputmode="numeric" pattern="[0-9]{8}" maxlength="8" placeholder="8 números, sin puntos" required>
+        <input type="text" id="dni" name="dni" inputmode="numeric" pattern="[0-9]{8}" maxlength="8" placeholder="8 números, sin puntos" required>
 
 
         <label for="nombre">Nombre</label>
@@ -38,7 +38,7 @@
         <textarea id="historiaClinica" name="historiaClinica" placeholder="Ingresá la historia clínica"></textarea>
 
         <button type="submit">Registrar paciente</button>
-        <div id="mensajeRegistro"></div>
+        <p id="mensajeRegistro" class="mensaje-turno oculto" role="status"></p>
 
     </form>
 </div>
