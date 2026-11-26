@@ -197,6 +197,9 @@ async function sacarTurnoNuevo(dni, idEspecialidad, idMedico, idTurno) {
     botonPedir.disabled = true;
     ocultarMensajeSacarTurno();
 
+    const btnRegistro = document.getElementById("btnRegistro");
+    btnRegistro.hidden = true;
+
     try {
         const respuesta = await fetch(`${API_URL}/reservas`, {
             method: "POST",
@@ -212,6 +215,10 @@ async function sacarTurnoNuevo(dni, idEspecialidad, idMedico, idTurno) {
 
         if (!respuesta.ok) {
             mostrarMensajeSacarTurno(datos.error ?? "No se pudo sacar el turno.", "error");
+             if (respuesta.status === 404 &&
+                datos.error === "No hay ningún paciente registrado con ese DNI") {
+                btnRegistro.hidden = false;
+            }
             return;
         }
 

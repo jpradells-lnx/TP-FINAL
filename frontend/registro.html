@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <title>Especialidades</title>
+        <link rel="stylesheet" href="styles.css">
+    </head>
+    <body>
+        <div class="navbar">
+            <a href="index.html">Inicio</a>
+            <a href="especialidades.html">Especialidades y Médicos</a>
+            <a href="turnos.html">Sacá turno</a>
+        </div>
+
+
+       <div id="registro">
+        <div class="tarjeta-registro">
+    <h2>Registrate como paciente!</h2>
+
+    <form id="formPaciente">
+
+        <label for="dni">DNI</label>
+        <input type="text" id="dniPaciente" name="dniPaciente" inputmode="numeric" pattern="[0-9]{8}" maxlength="8" placeholder="8 números, sin puntos" required>
+
+
+        <label for="nombre">Nombre</label>
+        <input type="text" id="nombre" name="nombre" placeholder="Ingresá tu nombre" required>
+
+        <label for="apellido">Apellido</label>
+        <input type="text" id="apellido" name="apellido" placeholder="Ingresá tu apellido" required>
+
+        <label for="fechaDeNacimiento">Fecha de nacimiento</label>
+        <input type="date" id="fechaDeNacimiento" name="fechaDeNacimiento" required>
+
+        <label for="historiaClinica">
+            Historia clínica (opcional)
+        </label>
+        <textarea id="historiaClinica" name="historiaClinica" placeholder="Ingresá la historia clínica"></textarea>
+
+        <button type="submit">Registrar paciente</button>
+        <div id="mensajeRegistro"></div>
+
+    </form>
+</div>
+       </div>
+
+        <div class="footer">
+            <p>Contacto:</p>
+            <ul>
+                <li>📞 Teléfono: 123-456-7890</li>
+                <li>✉️ E-mail: turnos.medicos@hotmail.com</li>
+            </ul>
+        </div>
+        <script src="js/config.js"></script>
+        <script src="js/registro.js"></script>
+    </body>
+</html>
