@@ -209,11 +209,19 @@ input[type="number"] {
 
 /*Especialidades*/
 #especialidades {
-    display: flex;
-    flex-direction: column;
-    gap: 12px;
-    max-width: 900px;
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    align-items: start; /* al abrir una tarjeta no se estiran las de su fila */
+    gap: 16px;
+    max-width: 1100px;
     margin: 30px auto;
+    padding: 0 20px;
+}
+
+/* Mensajes como "No hay especialidades cargadas." ocupan todo el ancho */
+#especialidades > p {
+    grid-column: 1 / -1;
+    text-align: center;
 }
 
 .card {
@@ -221,7 +229,6 @@ input[type="number"] {
     border: 2px solid rgb(23, 45, 123);
     border-radius: 12px;
     overflow: hidden;
-    width: 500px;
     transition: background-color 0.3s ease, box-shadow 0.3s ease;
     text-align: center;
 }
@@ -232,6 +239,11 @@ input[type="number"] {
 }
 
 .card-name {
+    aspect-ratio: 1 / 1; /* tarjeta cerrada = cuadrada */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-sizing: border-box;
     padding: 20px;
     margin: 0;
     font-size: 18px;
@@ -242,6 +254,11 @@ input[type="number"] {
 
 .card-name:hover {
     background-color: #f0f7fb;
+}
+
+/* Al abrir la tarjeta, el título vuelve a su alto normal para que no quede un cuadrado gigante arriba de los detalles */
+.card:has(.card-detalles:not(.oculto)) .card-name {
+    aspect-ratio: auto;
 }
 
 .card-detalles {
