@@ -1,6 +1,6 @@
 import { Router } from "express";
 import { parseDni, parseId } from "../utils/validaciones.js";
-import { getPacientePorDni, getPacientePorId, getPacienteLogin, crearPaciente } from "../db/queries.js";
+import { getPacientePorDni, getPacientePorId, getTurnosDePaciente, getPacienteLogin, crearPaciente } from "../db/queries.js";
 
 const router = Router();
 
@@ -24,6 +24,20 @@ router.get("/:id", async (req, res) => {
         console.error(error);
         return res.status(500).json({error: "No se pudo obtener el paciente"});
    }
+});
+
+router.get("/:id/turnos", async (req, res) => {
+    const id = parseId(req.params.id);
+    if (id === null) return res.status(400).json({ error: "Id invalido" });
+
+    try {
+        const paciente = await getPacientePorId(id);
+        if (!paciente) return res.status(404).json({ error: "Paciente no encontrado" });
+        return res.json(await getTurnosDePaciente(id));
+    } catch (error) {
+        console.error(error);
+        return res.status(500).json({ error: "No se pudieron obtener los turnos" });
+    }
 });
 
 router.post("/login", async (req, res) => {
