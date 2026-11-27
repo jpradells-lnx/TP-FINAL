@@ -105,11 +105,21 @@ export async function reservarTurno({ idPaciente, idEspecialidad, idMedico, idTu
 }
 
 
-export async function crearPaciente({dni, nombre, apellido, fechaDeNacimiento, historiaClinica}){
+export async function crearPaciente({dni, contra, nombre, apellido, fechaDeNacimiento, historiaClinica}){
     const result = await db.query(`INSERT INTO pacientes 
-        (dni, nombre, apellido, fechaDeNacimiento, historiaClinica) VALUES ($1,$2,$3,$4,$5) RETURNING *`,
-        [dni, nombre, apellido,fechaDeNacimiento, historiaClinica ?? null]);
+        (dni, contra, nombre, apellido, fechaDeNacimiento, historiaClinica) VALUES ($1,$2,$3,$4,$5,$6)
+        RETURNING id, dni, nombre, apellido`,
+        [dni, contra, nombre, apellido, fechaDeNacimiento, historiaClinica ?? null]);
         return result.rows[0];
+}
+
+// Devuelve el paciente si el DNI y la contraseña coinciden, o undefined si no
+export async function getPacienteLogin(dni, contra) {
+    const result = await db.query(
+        "SELECT id, dni, nombre, apellido FROM pacientes WHERE dni = $1 AND contra = $2 LIMIT 1",
+        [dni, contra]
+    );
+    return result.rows[0];
 }
 
 export async function crearEspecialidad({ nombre, descripcion, monto, duracion }) {
