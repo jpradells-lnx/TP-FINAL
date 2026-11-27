@@ -1,5 +1,5 @@
 import { Router } from "express";
-import { parseDni } from "../utils/validaciones.js";
+import { parseDni, parseid } from "../utils/validaciones.js";
 import { getPacientePorDni, getPacienteLogin, crearPaciente } from "../db/queries.js";
 
 const router = Router();
@@ -11,6 +11,20 @@ const MIN_CONTRA = 4;
 const MAX_CONTRA = 12;
 // Al menos una mayúscula, una minúscula, un número y un carácter especial (cualquier cosa que no sea letra ni número)
 const REGEX_CONTRA = /^(?=.*\p{Lu})(?=.*\p{Ll})(?=.*\d)(?=.*[^\p{L}\d]).+$/u;
+
+router.get("/:id", async (req, res) => {
+   const id = parseid(req.params.id);
+   if (id === null) return res.status(400).json({error: "Id invalido"});
+
+   try {
+        const paciente = await getPacientePorId(id);
+        if (!paciente) return res.status(404).json({error: "Paciente no encontrado"});
+        return res.json(paciente);
+   } catch (error) {
+        console.error(error);
+        return res.status(500).json({error: "No se pudo obtener el paciente"});
+   }
+});
 
 router.post("/login", async (req, res) => {
     const { dni, contra } = req.body ?? {};

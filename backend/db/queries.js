@@ -122,6 +122,17 @@ export async function getPacienteLogin(dni, contra) {
     return result.rows[0];
 }
 
+export async function getPacientePorId(id) {
+    const result = await db.query(
+        `SELECT id, dni, nombre, apellido,
+                TO_CHAR(fechaDeNacimiento, 'YYYY-MM-DD') AS "fechaDeNacimiento",
+                historiaClinica AS "historiaClinica"
+         FROM pacientes WHERE id = $1`,
+        [id]
+    );
+    return result.rows[0];
+}
+
 export async function crearEspecialidad({ nombre, descripcion, monto, duracion }) {
     const result = await db.query(`INSERT INTO especialidades 
         (nombre, descripcion, monto_consulta, duracion) 
