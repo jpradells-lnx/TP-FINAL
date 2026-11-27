@@ -13,7 +13,7 @@ function crearModalLogin() {
             <input type="text" id="dniLogin" inputmode="numeric" pattern="[0-9]{8}" maxlength="8"
                    placeholder="8 números, sin puntos" required>
             <label for="contraLogin">Contraseña</label>
-            <input type="text" id="contraLogin" maxlength="12"
+            <input type="password" id="contraLogin" maxlength="12"
                    placeholder="Ingresa tu contraseña" required>
             <p id="mensajeLogin" class="mensaje-turno error" role="status" hidden></p>
             <button type="submit" class="boton">Ingresar</button>
@@ -34,16 +34,22 @@ function crearModalLogin() {
     modal.querySelector("#formLogin").addEventListener("submit", async (e) => {
         e.preventDefault();
         const dni = modal.querySelector("#dniLogin").value;
+        const contra = modal.querySelector("#contraLogin").value;
         mensaje.hidden = true;
 
         try {
-            const respuesta = await fetch(`${API_URL}/pacientes/${dni}`);
+            const respuesta = await fetch(`${API_URL}/pacientes/login`, {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({ dni, contra })
+            });
+            const datos = await respuesta.json().catch(() => ({}));
             if (!respuesta.ok) {
-                mensaje.textContent = "DNI no registrado. Registrate primero.";
+                mensaje.textContent = datos.error ?? "No se pudo iniciar sesión";
                 mensaje.hidden = false;
                 return;
             }
-            localStorage.setItem("paciente", JSON.stringify(await respuesta.json()));
+            localStorage.setItem("paciente", JSON.stringify(datos));
             window.location.href = "personal.html";
         } catch (error) {
             mensaje.textContent = "No se pudo conectar con el servidor";
@@ -63,4 +69,10 @@ document.getElementById("linkYo").addEventListener("click", (e) => {
     modal.querySelector("#formLogin").reset();
     modal.querySelector("#mensajeLogin").hidden = true;
     modal.showModal();
+});
+
+
+document.getElementById("cerrarSesion").addEventListener("click", async () => {
+    localStorage.setItem("paciente", null);
+    window.location.href = "index.html";
 });
