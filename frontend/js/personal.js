@@ -61,18 +61,24 @@ function crearModalLogin() {
     return modal;
 }
 
-document.getElementById("linkYo").addEventListener("click", (e) => {
-    if (usuarioLoggeado()) return;
-    e.preventDefault();
+const linkYo = document.getElementById("linkYo");
+if (linkYo) {
+    linkYo.addEventListener("click", (e) => {
+        if (usuarioLoggeado()) return;
+        e.preventDefault();
 
-    const modal = document.getElementById("modalLogin") ?? crearModalLogin();
-    modal.querySelector("#formLogin").reset();
-    modal.querySelector("#mensajeLogin").hidden = true;
-    modal.showModal();
-});
+        const modal = document.getElementById("modalLogin") ?? crearModalLogin();
+        modal.querySelector("#formLogin").reset();
+        modal.querySelector("#mensajeLogin").hidden = true;
+        modal.showModal();
+    });
+}
 
-
-document.getElementById("cerrarSesion").addEventListener("click", async () => {
-    localStorage.setItem("paciente", null);
+const botonCerrar = document.getElementById("cerrarSesion");
+if(botonCerrar){
+    botonCerrar.addEventListener("click", async () => {
+    console.log("Gola");
+    localStorage.removeItem("paciente");
     window.location.href = "index.html";
-});
+    });
+}
