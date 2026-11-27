@@ -961,3 +961,42 @@ input[type="number"] {
 #cancelar:hover {
     background-color: #e9edf5;
 }
+/*MODAL LOGIN*/
+
+.modal-login {
+    margin: auto;
+    padding-bottom: 24px;
+}
+
+.modal-login::backdrop {
+    background-color: rgba(10, 20, 60, 0.55);
+}
+
+.modal-login .mensaje-turno {
+    margin: 0 0 4px;
+}
+
+.modal-login .mensaje-turno[hidden] {
+    display: none;
+}
+
+.boton-secundario {
+    background-color: white;
+    color: rgb(23, 45, 123);
+    border: 2px solid rgb(23, 45, 123);
+    margin-top: 12px;
+}
+
+.boton-secundario:hover {
+    background-color: rgba(133, 157, 245, 0.12);
+}
+
+.modal-login-registro {
+    text-align: center;
+    margin: 16px 0 0;
+}
+
+.modal-login-registro a {
+    color: #263da3;
+    font-weight: bold;
+}

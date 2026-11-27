@@ -1,6 +1,7 @@
 CREATE TABLE pacientes (
 id SERIAL PRIMARY KEY,
 dni INT NOT NULL,
+contra VARCHAR(12) NOT NULL UNIQUE,
 nombre VARCHAR(50) NOT NULL,
 apellido VARCHAR(50) NOT NULL,
 fechaDeNacimiento DATE NOT NULL,

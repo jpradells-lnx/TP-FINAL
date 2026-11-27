@@ -10,11 +10,20 @@ const EDAD_MINIMA = 3;
 
 router.get("/:dni", async (req, res) => {
     const dni = parseDni(req.params.dni);
-    if (dni === null) return res.status(400).json({error: "DNI invalido"});
+    if (dni === null) {
+        return res.status(400).json({ error: "DNI inválido" });
+    }
 
-    const paciente = await getPacientePorDni(dni);
-    if (!paciente) return res.status(404).json({error: "No existe un paciente con ese DNI"});
-    res.json(paciente);
+    try {
+        const paciente = await getPacientePorDni(dni);
+        if (!paciente) {
+            return res.status(404).json({ error: "No existe un paciente con ese DNI" });
+        }
+        return res.json(paciente);
+    } catch (error) {
+        console.error(error);
+        return res.status(500).json({ error: "No se pudo buscar al paciente" });
+    }
 });
 
 router.post("/", async (req, res) => {

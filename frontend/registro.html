@@ -21,18 +21,23 @@
             <h2>Registrate como Paciente!</h2>
         <form id="formPaciente">
 
-        <label for="dni">DNI</label>
-        <input type="text" id="dni" name="dni" inputmode="numeric" pattern="[0-9]{8}" maxlength="8" placeholder="8 números, sin puntos" required>
-
-
         <label for="nombre">Nombre</label>
         <input type="text" id="nombre" name="nombre" placeholder="Ingresá tu nombre" required>
 
         <label for="apellido">Apellido</label>
         <input type="text" id="apellido" name="apellido" placeholder="Ingresá tu apellido" required>
 
+        <label for="dni">DNI</label>
+        <input type="text" id="dni" name="dni" inputmode="numeric" pattern="[0-9]{8}" maxlength="8" placeholder="8 números, sin puntos" required>
+
         <label for="fechaDeNacimiento">Fecha de nacimiento</label>
         <input type="date" id="fechaDeNacimiento" name="fechaDeNacimiento" required>
+
+        <label for="contraRegistro">Contraseña</label>
+        <input type="text" id="contraRegistro" name="contraRegistro" maxlength="12" placeholder="Ingresa una contraseña">
+
+        <label for="contraRegistro2">Confirmacion de Contraseña</label>
+        <input type="text" id="contraRegistro" name="contraRegistro2" maxlength="12" placeholder="Confirma la contraseña">
 
         <label for="historiaClinica">
             Historia clínica (opcional)
