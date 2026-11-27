@@ -305,36 +305,55 @@ body {
 
 .form-contenedor {
     width: 520px;
-    max-width: 100%;
+    max-width: 95%;
     box-sizing: border-box;
     margin: 30px auto 45px auto;
-    padding: 25px 30px;
-    border: 2px solid rgb(23, 45, 123);
-    border-top: 4px solid rgb(23, 45, 123);
-    border-radius: 8px;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.06);
-    background-color: rgba(160, 221, 247, 0.599);
+    padding: 0 30px 30px;
+    border: 2px solid #263da3;
+    border-radius: 16px;
+    overflow: hidden;
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.08);
+    background-color: white;
 }
-
-.form-contenedor h2 {
+.form-contenedor h3,
+#dialogo-esp h2 {
     font-family: 'Poppins', sans-serif;
+    font-size: 23px;
+    font-weight: 600;
     text-align: center;
-    margin-top: 0;
+    color: white;
+    background: linear-gradient(90deg, #172d7b, #263da3);
+    padding: 20px;
 }
 
-#form-turno {
+.form-contenedor h3 {
+    margin: 0 -30px 25px;
+}
+
+#dialogo-esp h2 {
+    margin: 0;
+}
+
+#form-turno,
+#form-esp {
     display: flex;
     flex-direction: column;
     gap: 6px;
 }
 
-#form-turno label {
+#form-esp {
+    padding: 30px;
+}
+
+#form-turno label,
+#form-esp label {
     font-weight: bold;
     margin-top: 10px;
 }
 
 #form-turno select,
-#form-turno input {
+#form-turno input,
+#form-esp input {
     width: 100%;
     height: 44px;
     box-sizing: border-box;
@@ -344,6 +363,8 @@ body {
     border: 2px solid rgb(23, 45, 123);
     border-radius: 8px;
     background-color: white;
+    transition: border-color 0.3s ease,
+                box-shadow 0.3s ease;
 }
 
 #form-turno select {
@@ -351,7 +372,8 @@ body {
 }
 
 #form-turno select:focus,
-#form-turno input:focus {
+#form-turno input:focus,
+#form-esp input:focus {
     outline: none;
     border-color: rgb(133, 157, 245);
     box-shadow: 0 0 0 3px rgba(133, 157, 245, 0.5);
@@ -363,23 +385,8 @@ body {
     cursor: not-allowed;
 }
 
-#form-turno button {
-    width: 100%;
-    height: 48px;
-    margin-top: 20px;
-    font-size: 18px;
-    font-family: 'Poppins', sans-serif;
-    color: white;
-    background-color: rgb(23, 45, 123);
-    border: none;
-    border-radius: 15px;
-    cursor: pointer;
-    transition: background-color 0.3s ease, box-shadow 0.3s ease;
-}
-
-#form-turno button:hover {
-    background-color: rgb(133, 157, 245);
-    color: black;
+#turnosDisponibles:empty {
+    display: none;
 }
 
 .mensaje {
@@ -801,21 +808,28 @@ input[type="number"] {
 /*REGISTRO*/
 
 .tarjeta-registro {
-    background-color: rgba(160, 221, 247, 0.599);
-    border: 2px solid rgb(23, 45, 123);
-    border-top: 4px solid rgb(23, 45, 123);
-    border-radius: 10px;
-    max-width: 550px;
+    background-color: white;
+    border: 2px solid #263da3;
+    border-radius: 16px;
+    max-width: 520px;
+    width: 95%;
     margin: 30px auto;
-    padding: 30px 36px;
+    padding: 0 30px 30px;
     box-sizing: border-box;
     font-family: Arial, sans-serif;
+    overflow: hidden;
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.08);
 }
 
 .tarjeta-registro h2 {
+    font-family: 'Poppins', sans-serif;
+    font-size: 23px;
+    font-weight: 600;
     text-align: center;
-    font-size: 28px;
-    margin: 0 0 35px;
+    color: white;
+    background: linear-gradient(90deg, #172d7b, #263da3);
+    margin: 0 -30px 30px;
+    padding: 20px;
 }
 
 .tarjeta-registro form {
@@ -824,7 +838,7 @@ input[type="number"] {
 }
 
 .tarjeta-registro label {
-    font-size: 18px;
+    font-size: 16px;
     font-weight: bold;
     margin-bottom: 8px;
 }
@@ -832,14 +846,15 @@ input[type="number"] {
 .tarjeta-registro input,
 .tarjeta-registro textarea {
     width: 100%;
-    padding: 14px;
-    margin-bottom: 20px;
-    border: 2px solid #2f3f7a;
-    border-radius: 10px;
+    padding: 12px;
+    margin-bottom: 16px;
+    border: 2px solid rgb(23, 45, 123);
+    border-radius: 8px;
     background-color: white;
-    font-size: 18px;
+    font-size: 16px;
     font-family: inherit;
     box-sizing: border-box;
+    transition: box-shadow 0.3s ease;
 }
 
 .tarjeta-registro textarea {
@@ -850,46 +865,99 @@ input[type="number"] {
 .tarjeta-registro input:focus,
 .tarjeta-registro textarea:focus {
     outline: none;
-    box-shadow: 0 0 0 4px #9db9f5;
+    box-shadow: 0 0 0 3px rgba(133, 157, 245, 0.4);
 }
 
-.tarjeta-registro button {
+.boton {
+    display: inline-block;
+    padding: 10px 20px;
+    border-radius: 999px;
     background-color: rgb(23, 45, 123);
     color: white;
-    border: none;
-    border-radius: 18px;
-    padding: 16px;
+    font-family: inherit;
     font-size: 20px;
-    cursor: pointer;
-    margin-top: 10px;
-    transition: background-color 0.3s ease, box-shadow 0.3s ease;
-
-}
-
-.tarjeta-registro button:hover {
-    background-color: rgb(133, 157, 245);
-}
-
-#btnRegistro {
-    background-color: rgb(23, 45, 123);
-    color: white;
-    padding: 15px;
-    border-radius: 18px;
-    text-align: center;
+    font-weight: bold;
     text-decoration: none;
-    margin-top: 15px;
-    transition: background-color 0.3s ease, box-shadow 0.3s ease;
-}
-#btnRegistro:hover {
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
-    background-color: rgb(133, 157, 245);
+    text-align: center;
+    border: none;
+    cursor: pointer;
+    box-sizing: border-box;
+    width: 100%;
+    height: 48px;
+    margin-top: 20px;
+    transition: background-color 0.3s ease,
+                transform 0.3s ease,
+                box-shadow 0.3s ease;
 }
 
 
-#btnRegistro[hidden] {
+.boton:hover {
+    background-color: rgb(36, 65, 169);
+    transform: translateY(-1px);
+    box-shadow: 0 4px 10px rgba(23, 45, 123, 0.3);
+}
+
+.boton[hidden] {
     display: none;
 }
 
-#btnRegistro:not([hidden]) {
-    display: block;
+.contenedor-agregar {
+    width: fit-content;
+    margin: 20px auto;
+    padding: 12px 18px;
+    background-color: transparent;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+#agregar {
+    margin: 0;
+    width: auto;
+}
+
+#dialogo-esp {
+    width: 520px;
+    max-width: 95%;
+    max-height: 90vh;
+    box-sizing: border-box;
+    margin: auto;
+    padding: 0;
+    border: 2px solid #263da3;
+    border-radius: 16px;
+    background-color: white;
+    overflow: auto;
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15);
+}
+
+#dialogo-esp h2 {
+    margin: 0;
+    padding: 20px;
+}
+
+#form-esp {
+    padding: 25px 30px 30px;
+}
+
+#dialogo-esp::backdrop {
+    background-color: rgba(0, 0, 0, 0.4);
+    backdrop-filter: blur(2px);
+}
+
+#cancelar {
+    background-color: transparent;
+    border: 2px solid rgb(23, 45, 123);
+    color: rgb(23, 45, 123);
+    border-radius: 999px;
+    height: 44px;
+    font-family: inherit;
+    font-size: 16px;
+    font-weight: bold;
+    cursor: pointer;
+    margin-top: 8px;
+    transition: background-color 0.3s ease;
+}
+
+#cancelar:hover {
+    background-color: #e9edf5;
 }

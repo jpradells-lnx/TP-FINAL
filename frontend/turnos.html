@@ -15,9 +15,10 @@
             </div>
         </div>
         
+        
         <div class="form-contenedor">
-            <h2>Sacá tu turno</h2>
-            <form id="form-turno" novalidate>
+            <h3>Sacá tu turno Online</h3>
+            <form id="form-turno" class="form-turno" novalidate>
                 <label for="especialidad">Especialidad</label>
                 <select id="especialidad" name="especialidad" required>
                     <option value="">Cargando...</option>
@@ -29,21 +30,16 @@
                 </select>
 
                 <div id="turnosDisponibles"></div>
-                <!--<label for="fecha">Fecha</label>
-                <input type="date" id="fecha" name="fecha" required>
-
-                <label for="hora">Hora</label>
-                <input type="time" id="hora" name="hora" min="08:00" max="18:00" required>-->
 
                 <label for="dniPaciente">DNI</label>
                 <input type="text" id="dniPaciente" name="dniPaciente" inputmode="numeric" pattern="[0-9]{8}" maxlength="8" placeholder="8 números, sin puntos" required>
 
-                <button id="botonPedir" type="submit">Pedir turno</button>
+                <button id="botonPedir" class = "boton" type="submit">Pedir turno</button>
                 <p id="mensajeTurno" class="mensaje-turno oculto" role="status"></p>
 
-                <a id="btnRegistro" href="registro.html" hidden>
-                Registrarme
-                </a>
+                <button id="btnRegistro" class="boton" type="button" onclick="window.location.href='registro.html'" hidden>
+                    Registrarme
+                </button>
             </form>
         </div>
 
