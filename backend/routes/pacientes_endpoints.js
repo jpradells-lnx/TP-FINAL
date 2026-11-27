@@ -1,6 +1,6 @@
 import { Router } from "express";
-import { parseDni, parseid } from "../utils/validaciones.js";
-import { getPacientePorDni, getPacienteLogin, crearPaciente } from "../db/queries.js";
+import { parseDni, parseId } from "../utils/validaciones.js";
+import { getPacientePorDni, getPacientePorId, getPacienteLogin, crearPaciente } from "../db/queries.js";
 
 const router = Router();
 
@@ -13,7 +13,7 @@ const MAX_CONTRA = 12;
 const REGEX_CONTRA = /^(?=.*\p{Lu})(?=.*\p{Ll})(?=.*\d)(?=.*[^\p{L}\d]).+$/u;
 
 router.get("/:id", async (req, res) => {
-   const id = parseid(req.params.id);
+   const id = parseId(req.params.id);
    if (id === null) return res.status(400).json({error: "Id invalido"});
 
    try {

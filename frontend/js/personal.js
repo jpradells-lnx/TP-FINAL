@@ -82,3 +82,17 @@ if(botonCerrar){
     window.location.href = "index.html";
     });
 }
+
+const paciente = usuarioLoggeado();
+
+async function cargarDatos() {
+    const respuesta = await fetch(`${API_URL}/pacientes/${paciente.id}`);
+    const datos = await respuesta.json();
+
+    const titulo = document.getElementById("pregunta");
+    if (titulo) titulo.textContent = `Como te sentis hoy ${datos.nombre}?`
+}
+
+if (window.location === "personal.html"){
+    cargarDatos();
+}
