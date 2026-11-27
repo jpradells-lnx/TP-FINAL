@@ -1042,3 +1042,27 @@ input[type="number"] {
     color: #263da3;
     font-weight: bold;
 }
+
+/*PERSONAL (solo layout, sin estilo visual)*/
+
+.datos-paciente {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+}
+
+#turnosPaciente {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+}
+
+#turnosPaciente .cardTurno {
+    width: auto;
+    cursor: default;
+}
+
+.turno-pasado {
+    opacity: 0.5;
+    filter: grayscale(1);
+    pointer-events: none;
+}

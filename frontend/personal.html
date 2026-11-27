@@ -19,10 +19,27 @@
             <button id="cerrarSesion" class="boton-cerrar-sesion">Cerrar sesión</button>
         </div>
 
-        <div>
-            <h1 id="pregunta">Como te sentis hoy?</h1>
-            <h2>Te contamos un poco sobre vos:</h2>
+        <div id="personal">
+            <h1 id="pregunta">¿Cómo te sentís hoy?</h1>
+
+            <div class="datos-paciente">
+                <p><strong>Nombre:</strong> <span id="datoNombre"></span></p>
+                <p><strong>Apellido:</strong> <span id="datoApellido"></span></p>
+                <p><strong>DNI:</strong> <span id="datoDni"></span></p>
+                <p><strong>Fecha de nacimiento:</strong> <span id="datoFechaNacimiento"></span></p>
+                <p><strong>Edad:</strong> <span id="datoEdad"></span></p>
+                <p><strong>N° de paciente:</strong> <span id="datoId"></span></p>
+            </div>
+
+            <details>
+                <summary>Tus turnos</summary>
+                <div id="turnosPaciente"></div>
+            </details>
+
+            <h2>Historia clínica</h2>
             <p id="historiaClinica"></p>
+
+            <p>¿Te sentís mal? <a href="turnos.html">Sacar turno</a></p>
         </div>
 
         <div class="footer">

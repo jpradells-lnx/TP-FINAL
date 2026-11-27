@@ -122,6 +122,27 @@ export async function getPacienteLogin(dni, contra) {
     return result.rows[0];
 }
 
+// Turnos de un paciente con médico y especialidad. "pasado" es true si la fecha y hora ya pasaron.
+export async function getTurnosDePaciente(idPaciente) {
+    const result = await db.query(`
+        SELECT
+            t.id,
+            TO_CHAR(t.fecha, 'YYYY-MM-DD') AS fecha,
+            TO_CHAR(t.hora, 'HH24:MI') AS hora,
+            t.estado,
+            (t.fecha + t.hora) < (NOW() AT TIME ZONE 'America/Argentina/Buenos_Aires') AS pasado,
+            JSON_BUILD_OBJECT('nombre', m.nombre, 'apellido', m.apellido) AS medico,
+            e.nombre AS especialidad
+        FROM turnos t
+        JOIN medicos m ON m.id = t.medicoAsociado
+        LEFT JOIN especialidades e ON e.id = m.especialidad
+        WHERE t.pacienteAsociado = $1
+        ORDER BY t.fecha DESC, t.hora DESC`,
+        [idPaciente]
+    );
+    return result.rows;
+}
+
 export async function getPacientePorId(id) {
     const result = await db.query(
         `SELECT id, dni, nombre, apellido,
