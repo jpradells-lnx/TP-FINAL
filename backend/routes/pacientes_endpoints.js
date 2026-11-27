@@ -8,6 +8,15 @@ const REGEX_NOMBRE = /^[\p{L}][\p{L} '-]{0,49}$/u;
 const MAX_HISTORIA_CLINICA = 1000;
 const EDAD_MINIMA = 3;
 
+router.get("/:dni", async (req, res) => {
+    const dni = parseDni(req.params.dni);
+    if (dni === null) return res.status(400).json({error: "DNI invalido"});
+
+    const paciente = await getPacientePorDni(dni);
+    if (!paciente) return res.status(404).json({error: "No existe un paciente con ese DNI"});
+    res.json(paciente);
+});
+
 router.post("/", async (req, res) => {
     const { dni, nombre, apellido, fechaDeNacimiento, historiaClinica } = req.body ?? {};
 
