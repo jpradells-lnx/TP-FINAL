@@ -21,9 +21,11 @@ formAgregar.addEventListener("submit", async (event) => {
         alert("No se pudo agregar la especialidad");
         return;
     }
+    const nuevaEspecialidad = await respuesta.json();
+    console.log(nuevaEspecialidad);
     formAgregar.reset();
     dialogoAgregar.close();
-    cargarEspecialidades();
+    agregarEspecialidad(nuevaEspecialidad);
 });
 
 let panelAbierto = null;
@@ -176,7 +178,8 @@ function crearMedicos(medicos) {
 }
 
 function agregarEspecialidad(especialidad) {
-    const { id, nombre, descripcion, monto_consulta, duracion, medicos } = especialidad;
+    const { id, nombre, descripcion, monto_consulta, duracion } = especialidad;
+    const medicos = especialidad.medicos ?? especialidad.medicosdisponibles ?? [];
 
     const card = document.createElement("div");
     card.className = "card";
@@ -257,6 +260,7 @@ async function cargarEspecialidades() {
         if (!respuesta.ok) throw new Error("Error " + respuesta.status);
 
         const especialidades = await respuesta.json();
+        contenedorEspecialidades.innerHTML = "";
 
         if (especialidades.length === 0) {
             contenedorEspecialidades.replaceChildren(crearParrafo("No hay especialidades cargadas."));
