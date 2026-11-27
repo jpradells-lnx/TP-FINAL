@@ -105,11 +105,53 @@ export async function reservarTurno({ idPaciente, idEspecialidad, idMedico, idTu
 }
 
 
-export async function crearPaciente({dni, nombre, apellido, fechaDeNacimiento, historiaClinica}){
+export async function crearPaciente({dni, contra, nombre, apellido, fechaDeNacimiento, historiaClinica}){
     const result = await db.query(`INSERT INTO pacientes 
-        (dni, nombre, apellido, fechaDeNacimiento, historiaClinica) VALUES ($1,$2,$3,$4,$5) RETURNING *`,
-        [dni, nombre, apellido,fechaDeNacimiento, historiaClinica ?? null]);
+        (dni, contra, nombre, apellido, fechaDeNacimiento, historiaClinica) VALUES ($1,$2,$3,$4,$5,$6)
+        RETURNING id, dni, nombre, apellido`,
+        [dni, contra, nombre, apellido, fechaDeNacimiento, historiaClinica ?? null]);
         return result.rows[0];
+}
+
+// Devuelve el paciente si el DNI y la contraseña coinciden, o undefined si no
+export async function getPacienteLogin(dni, contra) {
+    const result = await db.query(
+        "SELECT id, dni, nombre, apellido FROM pacientes WHERE dni = $1 AND contra = $2 LIMIT 1",
+        [dni, contra]
+    );
+    return result.rows[0];
+}
+
+// Turnos de un paciente con médico y especialidad. "pasado" es true si la fecha y hora ya pasaron.
+export async function getTurnosDePaciente(idPaciente) {
+    const result = await db.query(`
+        SELECT
+            t.id,
+            TO_CHAR(t.fecha, 'YYYY-MM-DD') AS fecha,
+            TO_CHAR(t.hora, 'HH24:MI') AS hora,
+            t.estado,
+            (t.fecha + t.hora) < (NOW() AT TIME ZONE 'America/Argentina/Buenos_Aires') AS pasado,
+            JSON_BUILD_OBJECT('nombre', m.nombre, 'apellido', m.apellido) AS medico,
+            e.nombre AS especialidad
+        FROM turnos t
+        JOIN medicos m ON m.id = t.medicoAsociado
+        LEFT JOIN especialidades e ON e.id = m.especialidad
+        WHERE t.pacienteAsociado = $1
+        ORDER BY t.fecha DESC, t.hora DESC`,
+        [idPaciente]
+    );
+    return result.rows;
+}
+
+export async function getPacientePorId(id) {
+    const result = await db.query(
+        `SELECT id, dni, nombre, apellido,
+                TO_CHAR(fechaDeNacimiento, 'YYYY-MM-DD') AS "fechaDeNacimiento",
+                historiaClinica AS "historiaClinica"
+         FROM pacientes WHERE id = $1`,
+        [id]
+    );
+    return result.rows[0];
 }
 
 export async function crearEspecialidad({ nombre, descripcion, monto, duracion }) {

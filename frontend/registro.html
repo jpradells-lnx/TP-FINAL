@@ -13,6 +13,12 @@
                 <a href="especialidades.html">Especialidades y Médicos</a>
                 <a href="turnos.html">Sacá turno</a>
             </div>
+            <a href="personal.html" id="linkYo" class="link-yo" title="Mi perfil" aria-label="Mi perfil">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                    <circle cx="12" cy="8" r="4"></circle>
+                    <path d="M4 21c0-4.4 3.6-8 8-8s8 3.6 8 8"></path>
+                </svg>
+            </a>
         </div>
 
 
@@ -20,29 +26,44 @@
         <div class="tarjeta-registro">
             <h2>Registrate como Paciente!</h2>
         <form id="formPaciente">
+            <div class="campo">
+                <label for="nombre">Nombre</label>
+                <input type="text" id="nombre" name="nombre" placeholder="Ingresá tu nombre" required>
+            </div>
 
-        <label for="dni">DNI</label>
-        <input type="text" id="dni" name="dni" inputmode="numeric" pattern="[0-9]{8}" maxlength="8" placeholder="8 números, sin puntos" required>
+            <div class="campo">
+                <label for="apellido">Apellido</label>
+                <input type="text" id="apellido" name="apellido" placeholder="Ingresá tu apellido" required>
+            </div>
 
+            <div class="campo">
+                <label for="dni">DNI</label>
+                <input type="text" id="dni" name="dni" inputmode="numeric" pattern="[0-9]{8}" maxlength="8" placeholder="8 números, sin puntos" required>
+            </div>
 
-        <label for="nombre">Nombre</label>
-        <input type="text" id="nombre" name="nombre" placeholder="Ingresá tu nombre" required>
+            <div class="campo">
+                <label for="fechaDeNacimiento">Fecha de nacimiento</label>
+                <input type="date" id="fechaDeNacimiento" name="fechaDeNacimiento" required>
+            </div>
 
-        <label for="apellido">Apellido</label>
-        <input type="text" id="apellido" name="apellido" placeholder="Ingresá tu apellido" required>
+            <div class="campo">
+                <label for="contraRegistro">Contraseña</label>
+                <input type="password" id="contraRegistro" name="contraRegistro" minlength="4" maxlength="12" placeholder="4 a 12 caracteres: Aa, 1 y un símbolo" required>
+            </div>
 
-        <label for="fechaDeNacimiento">Fecha de nacimiento</label>
-        <input type="date" id="fechaDeNacimiento" name="fechaDeNacimiento" required>
+            <div class="campo">
+                <label for="contraRegistro2">Confirmación de contraseña</label>
+                <input type="password" id="contraRegistro2" name="contraRegistro2" minlength="4" maxlength="12" placeholder="Confirmá la contraseña" required>
+            </div>
 
-        <label for="historiaClinica">
-            Historia clínica (opcional)
-        </label>
-        <textarea id="historiaClinica" name="historiaClinica" placeholder="Ingresá la historia clínica"></textarea>
+            <div class="campo campo-completo">
+                <label for="historiaClinica">Historia clínica (opcional)</label>
+                <textarea id="historiaClinica" name="historiaClinica" placeholder="Ingresá la historia clínica"></textarea>
+            </div>
 
-        <button type="submit" class = "boton">Registrar paciente</button>
-        <p id="mensajeRegistro" class="mensaje-turno oculto" role="status"></p>
-
-    </form>
+            <button type="submit" class="boton campo-completo">Registrar paciente</button>
+            <p id="mensajeRegistro" class="mensaje-turno oculto campo-completo" role="status"></p>
+        </form>
 </div>
        </div>
 
@@ -56,6 +77,7 @@
             </ul>
         </div>
         <script src="js/config.js"></script>
+        <script src="js/sesion.js"></script>
         <script src="js/registro.js"></script>
     </body>
 </html>

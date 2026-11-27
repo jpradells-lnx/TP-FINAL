@@ -29,23 +29,23 @@ INSERT INTO medicos (especialidad, nombre, apellido, fechaDeNacimiento, mail) VA
 (1, 'Pablo', 'Romero', '1984-05-17', 'pablo.romero@turnosmedicos.com');
 
 -- PACIENTES (ids 1 a 16, datos inventados)
-INSERT INTO pacientes (dni, nombre, apellido, fechaDeNacimiento, historiaClinica) VALUES
-(30111222, 'Martina', 'López', '1992-02-11', 'Sin antecedentes relevantes.'),
-(28456789, 'Federico', 'Suárez', '1987-06-25', 'Control anual al día.'),
-(40222333, 'Camila', 'Rodríguez', '2000-10-02', NULL),
-(35777888, 'Nicolás', 'Pereyra', '1994-12-19', 'Consulta previa por dolor de rodilla.'),
-(22999000, 'Graciela', 'Domínguez', '1965-04-07', 'Seguimiento cardiológico.'),
-(45123456, 'Tomás', 'Acosta', '2015-09-14', 'Vacunas completas.'),
-(33444555, 'Julieta', 'Vega', '1991-01-28', NULL),
-(27888999, 'Ricardo', 'Silva', '1979-08-30', 'Control de presión arterial.'),
-(38555666, 'Lautaro', 'Giménez', '1995-05-03', 'Alergia a la penicilina.'),
-(31666777, 'Valentina', 'Morales', '1989-03-21', NULL),
-(42333444, 'Santiago', 'Ríos', '2001-07-15', 'Consulta por acné.'),
-(29777111, 'Mariana', 'Torres', '1983-09-09', 'Plan alimentario en curso.'),
-(24555888, 'Hugo', 'Castillo', '1972-11-30', 'Hipertensión controlada.'),
-(36888222, 'Rocío', 'Luna', '1993-06-12', NULL),
-(39111444, 'Joaquín', 'Sánchez', '1998-02-27', 'Migrañas frecuentes.'),
-(50222111, 'Emma', 'Paz', '2018-04-05', 'Control de crecimiento.');
+INSERT INTO pacientes (dni, contra, nombre, apellido, fechaDeNacimiento, historiaClinica) VALUES
+(30111222, 'martina123', 'Martina', 'López', '1992-02-11', 'Sin antecedentes relevantes.'),
+(28456789, 'federico123', 'Federico', 'Suárez', '1987-06-25', 'Control anual al día.'),
+(40222333, 'camila123', 'Camila', 'Rodríguez', '2000-10-02', NULL),
+(35777888, 'nicolas123', 'Nicolás', 'Pereyra', '1994-12-19', 'Consulta previa por dolor de rodilla.'),
+(22999000, 'graciela123', 'Graciela', 'Domínguez', '1965-04-07', 'Seguimiento cardiológico.'),
+(45123456, 'tomas123', 'Tomás', 'Acosta', '2015-09-14', 'Vacunas completas.'),
+(33444555, 'julieta123', 'Julieta', 'Vega', '1991-01-28', NULL),
+(27888999, 'ricardo123', 'Ricardo', 'Silva', '1979-08-30', 'Control de presión arterial.'),
+(38555666, 'lautaro123', 'Lautaro', 'Giménez', '1995-05-03', 'Alergia a la penicilina.'),
+(31666777, 'valentina123', 'Valentina', 'Morales', '1989-03-21', NULL),
+(42333444, 'santiago123', 'Santiago', 'Ríos', '2001-07-15', 'Consulta por acné.'),
+(29777111, 'mariana123', 'Mariana', 'Torres', '1983-09-09', 'Plan alimentario en curso.'),
+(24555888, 'hugo123', 'Hugo', 'Castillo', '1972-11-30', 'Hipertensión controlada.'),
+(36888222, 'rocio123', 'Rocío', 'Luna', '1993-06-12', NULL),
+(39111444, 'joaquin123', 'Joaquín', 'Sánchez', '1998-02-27', 'Migrañas frecuentes.'),
+(50222111, 'emma123', 'Emma', 'Paz', '2018-04-05', 'Control de crecimiento.');
 
 -- TURNOS (fechas futuras, sin repetir médico + fecha + hora)
 INSERT INTO turnos (hora, fecha, estado, pacienteAsociado, medicoAsociado) VALUES

@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <title>Turnos Medicos - Inicio</title>
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@700&display=swap" rel="stylesheet">
+        <link rel="stylesheet" href="styles.css">
+    </head>
+    <body>
+        <div class="navbar">
+            <a href="index.html" class="logo" title="Turnos Médicos Online">TMO</a>
+            <div class="navbar-links">
+                <a href="index.html">Inicio</a>
+                <a href="especialidades.html">Especialidades y Médicos</a>
+                <a href="turnos.html">Sacá turno</a>
+            </div>
+            <button id="cerrarSesion" class="boton-cerrar-sesion">Cerrar sesión</button>
+            <a href="personal.html" id="linkYo" class="link-yo" title="Mi perfil" aria-label="Mi perfil">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                    <circle cx="12" cy="8" r="4"></circle>
+                    <path d="M4 21c0-4.4 3.6-8 8-8s8 3.6 8 8"></path>
+                </svg>
+            </a>
+        </div>
+
+        <div id="personal">
+            <h1 id="pregunta">¿Cómo te sentís hoy?</h1>
+
+            <div class="datos-paciente">
+                <p><strong>Nombre:</strong> <span id="datoNombre"></span></p>
+                <p><strong>Apellido:</strong> <span id="datoApellido"></span></p>
+                <p><strong>DNI:</strong> <span id="datoDni"></span></p>
+                <p><strong>Fecha de nacimiento:</strong> <span id="datoFechaNacimiento"></span></p>
+                <p><strong>Edad:</strong> <span id="datoEdad"></span></p>
+                <p><strong>N° de paciente:</strong> <span id="datoId"></span></p>
+            </div>
+
+            <details>
+                <summary>Tus turnos</summary>
+                <div id="turnosPaciente"></div>
+            </details>
+
+            <h2>Historia clínica</h2>
+            <p id="historiaClinica"></p>
+
+            <p>¿Te sentís mal? <a href="turnos.html">Sacar turno</a></p>
+        </div>
+
+        <div class="footer">
+            <div class="footer-encabezado">
+                <h3>Contacto</h3>
+            </div>
+            <ul class="contacto-lista">
+                <li><span class="inicio-icono">📞</span>Teléfono: 123-456-7890</li>
+                <li><span class="inicio-icono">✉️</span>E-mail: turnos.medicos@hotmail.com</li>
+            </ul>
+        </div>
+        <script src="js/config.js"></script>
+        <script src="js/sesion.js"></script>
+        <script src="js/personal.js"></script>
+    </body>
+</html>

@@ -1,19 +1,82 @@
 import { Router } from "express";
-import { parseDni } from "../utils/validaciones.js";
-import { getPacientePorDni, crearPaciente } from "../db/queries.js";
+import { parseDni, parseId } from "../utils/validaciones.js";
+import { getPacientePorDni, getPacientePorId, getTurnosDePaciente, getPacienteLogin, crearPaciente } from "../db/queries.js";
 
 const router = Router();
 
 const REGEX_NOMBRE = /^[\p{L}][\p{L} '-]{0,49}$/u;
 const MAX_HISTORIA_CLINICA = 1000;
 const EDAD_MINIMA = 3;
+const MIN_CONTRA = 4;
+const MAX_CONTRA = 12;
+// Al menos una mayúscula, una minúscula, un número y un carácter especial (cualquier cosa que no sea letra ni número)
+const REGEX_CONTRA = /^(?=.*\p{Lu})(?=.*\p{Ll})(?=.*\d)(?=.*[^\p{L}\d]).+$/u;
+
+router.get("/:id", async (req, res) => {
+   const id = parseId(req.params.id);
+   if (id === null) return res.status(400).json({error: "Id invalido"});
+
+   try {
+        const paciente = await getPacientePorId(id);
+        if (!paciente) return res.status(404).json({error: "Paciente no encontrado"});
+        return res.json(paciente);
+   } catch (error) {
+        console.error(error);
+        return res.status(500).json({error: "No se pudo obtener el paciente"});
+   }
+});
+
+router.get("/:id/turnos", async (req, res) => {
+    const id = parseId(req.params.id);
+    if (id === null) return res.status(400).json({ error: "Id invalido" });
+
+    try {
+        const paciente = await getPacientePorId(id);
+        if (!paciente) return res.status(404).json({ error: "Paciente no encontrado" });
+        return res.json(await getTurnosDePaciente(id));
+    } catch (error) {
+        console.error(error);
+        return res.status(500).json({ error: "No se pudieron obtener los turnos" });
+    }
+});
+
+router.post("/login", async (req, res) => {
+    const { dni, contra } = req.body ?? {};
+
+    const dniPaciente = parseDni(dni);
+    if (dniPaciente === null || typeof contra !== "string" || contra.length === 0) {
+        return res.status(400).json({ error: "DNI o contraseña inválidos" });
+    }
+
+    try {
+        const paciente = await getPacienteLogin(dniPaciente, contra);
+        if (!paciente) {
+            return res.status(401).json({ error: "DNI o contraseña incorrectos" });
+        }
+        return res.json(paciente);
+    } catch (error) {
+        console.error(error);
+        return res.status(500).json({ error: "No se pudo iniciar sesión" });
+    }
+});
 
 router.post("/", async (req, res) => {
-    const { dni, nombre, apellido, fechaDeNacimiento, historiaClinica } = req.body ?? {};
+    const { dni, contra, nombre, apellido, fechaDeNacimiento, historiaClinica } = req.body ?? {};
 
     const dniPaciente = parseDni(dni);
     if (dniPaciente === null) {
         return res.status(400).json({ error: "DNI inválido" });
+    }
+
+    if (typeof contra !== "string" || contra.length < MIN_CONTRA || contra.length > MAX_CONTRA) {
+        return res.status(400).json({
+            error: `La contraseña debe tener entre ${MIN_CONTRA} y ${MAX_CONTRA} caracteres`
+        });
+    }
+    if (!REGEX_CONTRA.test(contra)) {
+        return res.status(400).json({
+            error: "La contraseña debe tener al menos una mayúscula, una minúscula, un número y un carácter especial"
+        });
     }
 
     const nombreLimpio = typeof nombre === "string" ? nombre.trim() : "";
@@ -61,6 +124,7 @@ router.post("/", async (req, res) => {
 
         const nuevoPaciente = await crearPaciente({
             dni: dniPaciente,
+            contra,
             nombre: nombreLimpio,
             apellido: apellidoLimpio,
             fechaDeNacimiento,
